@@ -84,7 +84,7 @@ class Model:
         
         tick = self.runner.schedule.tick
         
-        print("rank",self.rank,"step",self.countStep,"in tick",tick)
+        print("rank",self.rank,"step",self.countStep,"in tick",tick,flush=True)
         
     def fake(self):
         pass
