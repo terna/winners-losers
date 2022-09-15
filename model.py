@@ -3,6 +3,7 @@ from mpi4py import MPI
 from typing import Dict
 from repast4py import schedule
 from repast4py import context as ctx
+import time
 
 class Model:
     """
@@ -84,7 +85,8 @@ class Model:
         
         tick = self.runner.schedule.tick
         
-        print("rank",self.rank,"step",self.countStep,"in tick",tick,flush=True)
+        print("rank",self.rank,"step",self.countStep,"in tick",tick,\
+              "clock",time.time(),flush=True)
         
     def fake(self):
         pass
