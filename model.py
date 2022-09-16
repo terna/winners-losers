@@ -4,6 +4,12 @@ from typing import Dict
 from repast4py import schedule
 from repast4py import context as ctx
 import time
+"""
+time() -> floating point number
+        Return the current time in seconds since the Epoch.
+        Fractions of a second may be present if the system clock provides them.
+to know the Epoch, time.gmtime(0) (in Unix: 19700101)
+"""
 
 class Model:
     """
@@ -67,6 +73,7 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         self.runner.schedule_repeating_event(0, 1, self.step)
+        self.runner.schedule_end_event(self.finish)
         
         """
         schedule_stop(at)
@@ -79,7 +86,22 @@ class Model:
         
     def step(self):
         
-        self.context.synchronize(self.fake)  #???
+        """
+        synchronize(restore_agent, sync_ghosts=True)
+        Synchronizes the model state across processes by moving agents, 
+        filling projection buffers with ghosts, updating ghosted state and so forth.
+
+        Parameters
+        restore_agent (Callable) – a callable that takes agent state data and 
+        returns an agent instance from that data. The data is a tuple whose first 
+        element is the agent’s unique id tuple, and the second element is the 
+        agent’s state, as returned by that agent’s type’s save() method.
+
+        sync_ghosts (bool) – if True, the ghosts in any SharedProjections and 
+        value layers associated with this SharedContext are also synchronized. 
+        Defaults to True.
+        """
+        self.context.synchronize(self.fake)  # assures more regular steps clycle among ranks
         
         self.countStep+=1
         
@@ -90,6 +112,11 @@ class Model:
         
     def fake(self):
         pass
+    
+    def finish(self):
+        tick = self.runner.schedule.tick
+        print("ciao by rank",self.rank,"step",self.countStep,"in tick",tick,\
+              "clock",time.time(),flush=True)
         
     def start(self):
         self.runner.execute()
