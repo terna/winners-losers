@@ -3,6 +3,7 @@ from mpi4py import MPI
 from typing import Dict
 from repast4py import schedule
 from repast4py import context as ctx
+import repast4py
 import time
 """
 time() -> floating point number
@@ -10,6 +11,7 @@ time() -> floating point number
         Fractions of a second may be present if the system clock provides them.
 to know the Epoch, time.gmtime(0) (in Unix: 19700101)
 """
+from WinnerLoser import *
 
 class Model:
     """
@@ -84,6 +86,21 @@ class Model:
         """
         self.runner.schedule_stop(params['stop.at'])
         
+        # create agents
+        
+        rng = repast4py.random.default_rng  #da capire & seed qui?
+        
+        
+        for i in range(params['WinnerLoser.count'] // self.rankNum):
+            # create and add the agent to the context
+            aWallet=100 * rng.random()
+            #print(aWallet,flush=True)
+            winnerLoser = WinnerLoser(i,self.rank,aWallet)
+            self.context.add(winnerLoser)
+            
+        print(6, "agents in rank",self.rank, "=", len(self.context.agents(0, \
+                                                      shuffle=True)),flush=True)
+        
     def step(self):
         
         """
@@ -101,7 +118,8 @@ class Model:
         value layers associated with this SharedContext are also synchronized. 
         Defaults to True.
         """
-        self.context.synchronize(self.fake)  # assures more regular steps clycle among ranks
+        self.context.synchronize(self.fake)  # assures more regular steps 
+                                             # cycle among ranks??
         
         self.countStep+=1
         
