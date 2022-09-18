@@ -1,3 +1,4 @@
 # winners-losers
 
-repast4py initial model
+[Repast4Py](https://repast.github.io/repast4py.site/index.html) initial model
+following [Is Inequality Inevitable?](https://www.scientificamerican.com/article/is-inequality-inevitable/).
