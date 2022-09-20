@@ -29,7 +29,7 @@ class Model:
         self.rank    = comm.Get_rank()
         self.rankNum = comm.Get_size() #pt
         
-        print(5, "rank", self.rank, "rank number", self.rankNum)
+        #print(5, "rank", self.rank, "rank number", self.rankNum)
         
         
         # create the context to hold the agents and manage cross process
@@ -39,7 +39,7 @@ class Model:
         # create the schedule
         # https://repast.github.io/repast4py.site/apidoc/source/repast4py.schedule.html
         
-        self.countStep=0
+        self.countStep=-1
         
         """
         init_schedule_runner(comm)
@@ -75,7 +75,6 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         self.runner.schedule_repeating_event(0, 1, self.step)
-        self.runner.schedule_end_event(self.finish)
         
         """
         schedule_stop(at)
@@ -86,20 +85,33 @@ class Model:
         """
         self.runner.schedule_stop(params['stop.at'])
         
+        self.runner.schedule_end_event(self.finish)
+        
+
+        
         # create agents
         
+        # https://repast.github.io/repast4py.site/apidoc/source/repast4py.random.html
+        """
+        Random numbers for repast4py. When this module is imported, repast4py.random.default_rng 
+        is created using the current epoch time as the random seed, and repast4py.random.seed is 
+        set to that value. 
+        
+        repast4py.random.init(rng_seed=None)
+        Initializes the default random number generator using the specified seed.
+        """
         rng = repast4py.random.default_rng  #da capire & seed qui?
         
         
-        for i in range(params['WinnerLoser.count'] // self.rankNum):
+        for i in range(params['WinnerLoser.count'] // self.rankNum): #to subdivide the total #pt
             # create and add the agent to the context
             aWallet=100 * rng.random()
             #print(aWallet,flush=True)
             winnerLoser = WinnerLoser(i,self.rank,aWallet)
             self.context.add(winnerLoser)
             
-        print(6, "agents in rank",self.rank, "=", len(self.context.agents(0, \
-                                                      shuffle=True)),flush=True)
+        #print(6, "agents in rank",self.rank, "=", len(self.context.agents(0, \
+        #                                              shuffle=True)),flush=True)
         
     def step(self):
         
@@ -118,8 +130,8 @@ class Model:
         value layers associated with this SharedContext are also synchronized. 
         Defaults to True.
         """
-        self.context.synchronize(self.fake)  # assures more regular steps 
-                                             # cycle among ranks??
+        #self.context.synchronize(self.fake)  # assures more regular steps of
+                                             # cyclea among ranks??
         
         self.countStep+=1
         

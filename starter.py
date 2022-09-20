@@ -12,13 +12,13 @@ Creates an argparse parser with two arguments:
 parser = parameters.create_args_parser()
 
 args = parser.parse_args()
-print(1,args,flush=True)
+#print(1,args,flush=True)
 
 """
 init_params(parameters_file, parameters)
 Initializes the repast4py.parameters.params dictionary with the model input parameters.
 """
 params = parameters.init_params(args.parameters_file, args.parameters)
-print(2,params,flush=True)
+#print(2,params,flush=True)
 
 run(params)
