@@ -38,9 +38,7 @@ class Model:
         
         # create the schedule
         # https://repast.github.io/repast4py.site/apidoc/source/repast4py.schedule.html
-        
-        self.countStep=-1
-        
+                
         """
         init_schedule_runner(comm)
         Initializes the default schedule runner, a dynamic schedule of executable 
@@ -74,7 +72,8 @@ class Model:
                 is of a type that has a non null tp_call (c struct) member which 
                 indicates callability otherwise (such as in functions, methods etc.)
         """
-        self.runner.schedule_repeating_event(0, 1, self.step)
+        self.runner.schedule_repeating_event(0, 1, self.lookAtWalletsAndGive)
+        #self.runner.schedule_repeating_event(0.1, 1, self.give)
         
         """
         schedule_stop(at)
@@ -100,22 +99,22 @@ class Model:
         repast4py.random.init(rng_seed=None)
         Initializes the default random number generator using the specified seed.
         """
-        rng = repast4py.random.default_rng  #da capire & seed qui?
+        repast4py.random.init(rng_seed=params['myRandom.seed'][self.rank])
+        rng = repast4py.random.default_rng 
         
         
         for i in range(params['WinnerLoser.count'] // self.rankNum): #to subdivide the total #pt
             # create and add the agent to the context
-            aWallet=100 * rng.random()
+            aWallet=10 * rng.random()
             #print(aWallet,flush=True)
             winnerLoser = WinnerLoser(i,self.rank,aWallet)
             self.context.add(winnerLoser)
             
-        #print(6, "agents in rank",self.rank, "=", len(self.context.agents(0, \
-        #                                              shuffle=True)),flush=True)
         
-    def step(self):
+    def lookAtWalletsAndGive(self):
         
         """
+        NOT NECESARY IF NO PROJECTIONS
         synchronize(restore_agent, sync_ghosts=True)
         Synchronizes the model state across processes by moving agents, 
         filling projection buffers with ghosts, updating ghosted state and so forth.
@@ -130,23 +129,60 @@ class Model:
         value layers associated with this SharedContext are also synchronized. 
         Defaults to True.
         """
-        #self.context.synchronize(self.fake)  # assures more regular steps of
-                                             # cyclea among ranks??
         
-        self.countStep+=1
+        tick = self.runner.schedule.tick        
+        print("rank",self.rank,"at tick",tick,"clock",time.time(),flush=True)
         
-        tick = self.runner.schedule.tick
+        """
+        agents(agent_type=None, count=None, shuffle=False)
+        Gets the agents in this SharedContext, optionally of the specified type, count or shuffled.
+
+        Parameters
+        agent_type (int) – the type id of the agent, defaults to None.
+        count (int) – the number of agents to return, defaults to None, meaning return 
+        all the agents.shuffle (bool) – whether or not the iteration order is shuffled.
+        If true, the order is shuffled. If false, the iteration order is the order of 
+        insertion.
+
+        Returns
+        An iterable over all the agents in the context. If the agent_type is 
+        not None then an iterable over agents of that type will be returned.
+
+        Return type
+        iterable
+        """
+
+        agSet=list(self.context.agents())
+        print(self.rank," | ",list(agSet[i].myWallet for i in range(len(agSet)))\
+              ,flush=True)
         
-        print("rank",self.rank,"step",self.countStep,"in tick",tick,\
-              "clock",time.time(),flush=True)
+        for aWinnerLoser in self.context.agents():
+            agWalletSet=list(agSet[i].myWallet for i in range(len(agSet)))
+            minWalletPosition=agWalletSet.index(min(agWalletSet))
+            
+            list(self.context.agents())[minWalletPosition].myWallet+=1
+            aWinnerLoser.myWallet-=1
+            
+            
+    """ TMP TMP TMP
+        agSet=list(self.context.agents())
+        agWalletSet=list(agSet[i].myWallet for i in range(len(agSet)))
+        self.minWalletPosition=agWalletSet.index(min(agWalletSet))
+        print(self.rank," | ",agWalletSet,self.minWalletPosition,flush=True)
+        print(self.rank," | ",agSet[self.minWalletPosition].uid,agSet[self.minWalletPosition].myWallet,\
+              flush=True)
         
-    def fake(self):
-        pass
+    def give(self):
+        
+        for aWinnerLoser in self.context.agents():
+            list(self.context.agents())[self.minWalletPosition].myWallet+=1
+            aWinnerLoser.myWallet-=1
+    """    
+        
     
     def finish(self):
         tick = self.runner.schedule.tick
-        print("ciao by rank",self.rank,"step",self.countStep,"in tick",tick,\
-              "clock",time.time(),flush=True)
+        print("ciao by rank",self.rank,"at tick",tick,"clock",time.time(),flush=True)
         
     def start(self):
         self.runner.execute()
