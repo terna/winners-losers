@@ -73,7 +73,6 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         self.runner.schedule_repeating_event(0, 1, self.lookAtWalletsAndGive)
-        #self.runner.schedule_repeating_event(0.1, 1, self.give)
         
         """
         schedule_stop(at)
@@ -92,9 +91,9 @@ class Model:
         
         # https://repast.github.io/repast4py.site/apidoc/source/repast4py.random.html
         """
-        Random numbers for repast4py. When this module is imported, repast4py.random.default_rng 
-        is created using the current epoch time as the random seed, and repast4py.random.seed is 
-        set to that value. 
+        Random numbers for repast4py. When this module is imported, 
+        repast4py.random.default_rng is created using the current epoch time as 
+        the random seed, and repast4py.random.seed is set to that value. 
         
         repast4py.random.init(rng_seed=None)
         Initializes the default random number generator using the specified seed.
@@ -103,7 +102,8 @@ class Model:
         rng = repast4py.random.default_rng 
         
         
-        for i in range(params['WinnerLoser.count'] // self.rankNum): #to subdivide the total #pt
+        for i in range(params['WinnerLoser.count'] // self.rankNum): 
+                                                #to subdivide the total #pt
             # create and add the agent to the context
             aWallet=10 * rng.random()
             #print(aWallet,flush=True)
@@ -129,13 +129,11 @@ class Model:
         value layers associated with this SharedContext are also synchronized. 
         Defaults to True.
         """
-        
-        tick = self.runner.schedule.tick        
-        print("rank",self.rank,"at tick",tick,"clock",time.time(),flush=True)
-        
+                
         """
         agents(agent_type=None, count=None, shuffle=False)
-        Gets the agents in this SharedContext, optionally of the specified type, count or shuffled.
+        Gets the agents in this SharedContext, optionally of the specified type, count 
+        or shuffled.
 
         Parameters
         agent_type (int) – the type id of the agent, defaults to None.
@@ -149,37 +147,20 @@ class Model:
         not None then an iterable over agents of that type will be returned.
 
         Return type
-        iterable
+        iterable 
+        pt addendum: it is a generator, not a list
         """
 
-        agSet=list(self.context.agents())
-        print(self.rank," | ",list(agSet[i].myWallet for i in range(len(agSet)))\
-              ,flush=True)
-        
+        tick = self.runner.schedule.tick        
+        print("rank",self.rank,"at tick",tick,"clock",time.time(),"\nwallets",list(aWinnerLoser.myWallet\
+                                   for aWinnerLoser in self.context.agents()),\
+                                   flush=True)
+                
         for aWinnerLoser in self.context.agents():
-            agWalletSet=list(agSet[i].myWallet for i in range(len(agSet)))
-            minWalletPosition=agWalletSet.index(min(agWalletSet))
+            aWinnerLoser.lookForMinWallet(self.context.agents())
             
-            list(self.context.agents())[minWalletPosition].myWallet+=1
-            aWinnerLoser.myWallet-=1
-            
-            
-    """ TMP TMP TMP
-        agSet=list(self.context.agents())
-        agWalletSet=list(agSet[i].myWallet for i in range(len(agSet)))
-        self.minWalletPosition=agWalletSet.index(min(agWalletSet))
-        print(self.rank," | ",agWalletSet,self.minWalletPosition,flush=True)
-        print(self.rank," | ",agSet[self.minWalletPosition].uid,agSet[self.minWalletPosition].myWallet,\
-              flush=True)
-        
-    def give(self):
-        
-        for aWinnerLoser in self.context.agents():
-            list(self.context.agents())[self.minWalletPosition].myWallet+=1
-            aWinnerLoser.myWallet-=1
-    """    
-        
-    
+            aWinnerLoser.give(self.context.agents())   
+                
     def finish(self):
         tick = self.runner.schedule.tick
         print("ciao by rank",self.rank,"at tick",tick,"clock",time.time(),flush=True)

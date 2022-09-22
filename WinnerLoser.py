@@ -9,3 +9,13 @@ class WinnerLoser(core.Agent):
         super().__init__(id=local_id, type=WinnerLoser.TYPE, rank=rank)
 
         self.myWallet = wallet
+        
+    def lookForMinWallet(self,agSet):
+
+        agWalletSet=list(aWinnerLoser.myWallet for aWinnerLoser in agSet)
+        self.minWalletPosition=agWalletSet.index(min(agWalletSet))
+        
+    def give(self,agSet):
+        
+        list(agSet)[self.minWalletPosition].myWallet+=1
+        self.myWallet-=1
