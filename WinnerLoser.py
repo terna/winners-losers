@@ -1,5 +1,6 @@
 
 from repast4py import core
+from typing import Tuple
 
 class WinnerLoser(core.Agent):
 
@@ -19,3 +20,13 @@ class WinnerLoser(core.Agent):
         
         list(agSet)[self.minWalletPosition].myWallet+=1
         self.myWallet-=1
+
+        
+class Ghostbuster(core.Agent):
+
+    TYPE = 1
+    
+    def __init__(self, local_id: int, rank: int, prey: Tuple):
+        super().__init__(id=local_id, type=Ghostbuster.TYPE, rank=rank)
+        
+        self.myPrey=prey

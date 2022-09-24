@@ -101,14 +101,21 @@ class Model:
         repast4py.random.init(rng_seed=params['myRandom.seed'][self.rank])
         rng = repast4py.random.default_rng 
         
+        # winnerLoser agents
         
         for i in range(params['WinnerLoser.count'] // self.rankNum): 
                                                 #to subdivide the total #pt
             # create and add the agent to the context
             aWallet=10 * rng.random()
             #print(aWallet,flush=True)
-            winnerLoser = WinnerLoser(i,self.rank,aWallet)
-            self.context.add(winnerLoser)
+            aWinnerLoser = WinnerLoser(i,self.rank,aWallet)
+            self.context.add(aWinnerLoser)
+            
+        # ghostbuster agents
+  
+        if self.rank==0:
+            aGhostbuster = Ghostbuster(i,self.rank,(0,0,1))
+            self.context.add(aGhostbuster) 
             
         
     def lookAtWalletsAndGive(self):
@@ -152,14 +159,15 @@ class Model:
         """
 
         tick = self.runner.schedule.tick        
-        print("rank",self.rank,"at tick",tick,"clock",time.time(),"\nwallets",list(aWinnerLoser.myWallet\
-                                   for aWinnerLoser in self.context.agents()),\
-                                   flush=True)
+        print("rank",self.rank,"at tick",tick,"clock",time.time(),\
+                            "\nwallets",list(aWinnerLoser.myWallet\
+                            for aWinnerLoser in self.context.agents(agent_type=0)),\
+                            flush=True)
                 
-        for aWinnerLoser in self.context.agents():
-            aWinnerLoser.lookForMinWallet(self.context.agents())
+        for aWinnerLoser in self.context.agents(agent_type=0):
+            aWinnerLoser.lookForMinWallet(self.context.agents(agent_type=0))
             
-            aWinnerLoser.give(self.context.agents())   
+            aWinnerLoser.give(self.context.agents(agent_type=0))   
                 
     def finish(self):
         tick = self.runner.schedule.tick
