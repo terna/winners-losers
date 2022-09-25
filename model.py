@@ -73,6 +73,7 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         self.runner.schedule_repeating_event(0, 1, self.lookAtWalletsAndGive)
+        self.runner.schedule_repeating_event(0.1, 1, self.activateGhostbusters)
         
         """
         schedule_stop(at)
@@ -114,7 +115,7 @@ class Model:
         # ghostbuster agents
   
         if self.rank==0:
-            aGhostbuster = Ghostbuster(i,self.rank,(0,0,1))
+            aGhostbuster = Ghostbuster(0,self.rank,self.context,(0,0,1))
             self.context.add(aGhostbuster) 
             
         
@@ -167,7 +168,37 @@ class Model:
         for aWinnerLoser in self.context.agents(agent_type=0):
             aWinnerLoser.lookForMinWallet(self.context.agents(agent_type=0))
             
-            aWinnerLoser.give(self.context.agents(agent_type=0))   
+            aWinnerLoser.give(self.context.agents(agent_type=0))
+            
+    def activateGhostbusters(self):
+        tick = self.runner.schedule.tick
+
+        """
+        https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
+        
+        size(agent_type_ids=None)
+        Gets the number of local agents in this SharedContext, optionally by type.
+
+        Parameters
+        agent_type_ids (List[int]) – a list of the agent type ids identifying the 
+        agent types to count. If this is None then the total size is returned with 
+        an agent type id of -1.
+
+        Returns
+        A dictionary containing the counts (the dict values) by agent type (the 
+        dict keys).
+
+        Return type
+        dict
+
+"""
+        try: n=self.context.size([1])[1]
+        except: n=0
+        if n>0:
+            for aGhostbuster in self.context.agents(agent_type=1):  
+                #self.context.agents(agent_type=1) gives na error if no agent od type 1
+                # exist
+                aGhostbuster.search(tick)
                 
     def finish(self):
         tick = self.runner.schedule.tick
