@@ -21,6 +21,16 @@ class WinnerLoser(core.Agent):
         
         list(agSet)[self.minWalletPosition].myWallet+=1
         self.myWallet-=1
+        
+    def save(self) -> Tuple:
+        """
+        Saves the state of the WinnerLoser as a Tuple.
+
+        Returns:
+            The saved state of this Walker.
+        """
+        return (self.uid, self.myWallet)
+
 
         
 class Ghostbuster(core.Agent):
@@ -49,6 +59,8 @@ class Ghostbuster(core.Agent):
         Return type
         _core.Agent
         """
-        if self.context.agent(self.myPrey) == None: print("Not found in my rank",\
-                                                          flush=True)
+        if self.context.agent(self.myPrey) == None: 
+            print("Not found in my rank",flush=True)
+            #a=self.context.request_agents([self.myPrey,self.myPrey[2]])
+            #print("Ghost created",a,flush=True)
         
