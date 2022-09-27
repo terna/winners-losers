@@ -11,7 +11,10 @@ time() -> floating point number
         Fractions of a second may be present if the system clock provides them.
 to know the Epoch, time.gmtime(0) (in Unix: 19700101)
 """
-from WinnerLoser import *
+from classes import *
+
+agent_cache={} # dict with uid as keys and agents' tuples as values, 
+               # used by restore_agent (def in classes.py)
 
 class Model:
     """
@@ -191,13 +194,14 @@ class Model:
         Return type
         dict
 
-"""
-        try: n=self.context.size([1])[1]
-        except: n=0
-        if n>0:
+        """
+
+        atype_id = 1
+        # _agents_by_type from Nick mail 20220926
+        has_type = True if atype_id in self.context._agents_by_type and\
+                   len(self.context._agents_by_type[atype_id]) > 0 else False
+        if has_type:
             for aGhostbuster in self.context.agents(agent_type=1):  
-                #self.context.agents(agent_type=1) gives na error if no agent od type 1
-                # exist
                 aGhostbuster.search(tick)
                 
     def finish(self):
