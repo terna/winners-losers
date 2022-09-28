@@ -67,7 +67,7 @@ class Ghostbuster(core.Agent):
             request_agents(requested_agents, create_agent)
             Requests agents from other ranks to be copied to this rank as ghosts.
 
-            This is a collective operation and all ranks must call it, regardless 
+            ***This is a collective operation and all ranks must call it, regardless 
             of whether agents are being requested by that rank. The requested agents 
             will be automatically added as ghosts to this rank.
 
@@ -85,15 +85,7 @@ class Ghostbuster(core.Agent):
             Return type
             List[_core.Agent]
             """
-            A=[(self.myPrey,self.myPrey[2])]
-            print('A',A,flush=True)
-            B=restore_agent
-            print('B',B,flush=True)
-            C=self.context.request_agents
-            print('C',C,flush=True)       
-            
-            #a=self.context.request_agents([(self.myPrey,self.myPrey[2])],restore_agent)
-            a=C(A,B)
+            a=self.context.request_agents([(self.myPrey,self.myPrey[2])],restore_agent)
             print("Ghost created",a,flush=True)
 
             

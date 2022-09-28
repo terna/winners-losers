@@ -15,6 +15,9 @@ from classes import *
 
 agent_cache={} # dict with uid as keys and agents' tuples as values, 
                # used by restore_agent (def in classes.py)
+    
+ghostsToRequestOrUpdate=[] # list of uid of ghosts, used by search method of
+                           # GhostBuster class
 
 class Model:
     """
@@ -77,6 +80,7 @@ class Model:
         """
         self.runner.schedule_repeating_event(0, 1, self.lookAtWalletsAndGive)
         self.runner.schedule_repeating_event(0.1, 1, self.activateGhostbusters)
+        self.runner.schedule_repeating_event(0.2, 1, self.requestOrUpdateGhosts)
         
         """
         schedule_stop(at)
@@ -203,6 +207,9 @@ class Model:
         if has_type:
             for aGhostbuster in self.context.agents(agent_type=1):  
                 aGhostbuster.search(tick)
+                
+    def requestOrUpdateGhosts():
+        pass
                 
     def finish(self):
         tick = self.runner.schedule.tick
