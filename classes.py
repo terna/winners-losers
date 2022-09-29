@@ -2,6 +2,7 @@
 from repast4py import core
 from typing import Tuple
 from repast4py import context as ctx
+from memAlloc import *
 
 class WinnerLoser(core.Agent):
 
@@ -60,48 +61,29 @@ class Ghostbuster(core.Agent):
         _core.Agent
         """
         if self.context.agent(self.myPrey) == None: 
-            print("Not found in my rank",flush=True)
+            print("winnerLoser", self.myPrey, "not in my rank = ",self.uid[2],flush=True)
             
-            """
-            https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
-            request_agents(requested_agents, create_agent)
-            Requests agents from other ranks to be copied to this rank as ghosts.
-
-            ***This is a collective operation and all ranks must call it, regardless 
-            of whether agents are being requested by that rank. The requested agents 
-            will be automatically added as ghosts to this rank.
-
-            Parameters
-            requested_agents (List) – A list of tuples specifying requested 
-            agents and the rank to request from. Each tuple must contain the agents 
-            unique id tuple and the rank, for example ((id, type, rank), requested_rank).
-
-            create_agent (Callable) – a Callable that can take the result of an agent 
-            save() and return an agent.
-
-            Returns
-            The list of requested agents.
-
-            Return type
-            List[_core.Agent]
-            """
-            a=self.context.request_agents([(self.myPrey,self.myPrey[2])],restore_agent)
-            print("Ghost created",a,flush=True)
-
+        if (self.myPrey,self.myPrey[2]) not in ghostsToRequestOrUpdate:
+            ghostsToRequestOrUpdate.append((self.myPrey,self.myPrey[2]))
+                
+            
             
 def restore_agent(agent_data: Tuple):
-    print("qui",flush=True)
+
     uid=agent_data[0]
-    print (uid,flush=True)
+
     if uid[1] == WinnerLoser.TYPE:
+
         if uid in agent_cache:   # look for agent_cache in model.py
-            tmp = agent_cache[uid]
-        else:
-            tmp = WinnerLoser(uid[0], uid[2]) #creation of an instance of the class
+            tmp = agent_cache[uid] # found
+
+        else: #creation of an instance of the class
+            tmp = WinnerLoser(uid[0], uid[2],agent_data[1])                
             agent_cache[uid] = tmp
+
         # restore the agent state from the agent_data tuple
         tmp.myWallet = agent_data[1]
-        #print('qui', tmp.myWallet)
+        print('qui', tmp.myWallet)
         return tmp
              
     

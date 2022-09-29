@@ -12,12 +12,8 @@ time() -> floating point number
 to know the Epoch, time.gmtime(0) (in Unix: 19700101)
 """
 from classes import *
+from memAlloc import *
 
-agent_cache={} # dict with uid as keys and agents' tuples as values, 
-               # used by restore_agent (def in classes.py)
-    
-ghostsToRequestOrUpdate=[] # list of uid of ghosts, used by search method of
-                           # GhostBuster class
 
 class Model:
     """
@@ -208,8 +204,35 @@ class Model:
             for aGhostbuster in self.context.agents(agent_type=1):  
                 aGhostbuster.search(tick)
                 
-    def requestOrUpdateGhosts():
-        pass
+    def requestOrUpdateGhosts(self):
+        
+        
+        """
+        https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
+        request_agents(requested_agents, create_agent)
+        Requests agents from other ranks to be copied to this rank as ghosts.
+
+        !!!!This is a collective operation and all ranks must call it, regardless 
+        of whether agents are being requested by that rank. The requested agents 
+        will be automatically added as ghosts to this rank.
+
+        Parameters
+        requested_agents (List) – A list of tuples specifying requested 
+        agents and the rank to request from. Each tuple must contain the agents 
+        unique id tuple and the rank, for example ((id, type, rank), requested_rank).
+
+        create_agent (Callable) – a Callable that can take the result of an agent 
+        save() and return an agent.
+
+        Returns
+        The list of requested agents.
+
+        Return type
+        List[_core.Agent]
+        """
+        self.context.request_agents(ghostsToRequestOrUpdate,restore_agent)
+        print("rank", self.rank, "ghosts = ", agent_cache, flush=True)
+
                 
     def finish(self):
         tick = self.runner.schedule.tick
