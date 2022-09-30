@@ -204,8 +204,7 @@ class Model:
             for aGhostbuster in self.context.agents(agent_type=1):  
                 aGhostbuster.search(tick)
                 
-    def requestOrUpdateGhosts(self):
-        
+    def requestOrUpdateGhosts(self):       
         
         """
         https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
@@ -231,7 +230,8 @@ class Model:
         List[_core.Agent]
         """
         self.context.request_agents(ghostsToRequestOrUpdate,restore_agent)
-        print("rank", self.rank, "ghosts = ", agent_cache, flush=True)
+        print("rank", self.rank, "agent_cache", agent_cache, flush=True)
+        print("rank", self.rank, "ghostsToRequestOrUpdate", ghostsToRequestOrUpdate, flush=True)
 
                 
     def finish(self):

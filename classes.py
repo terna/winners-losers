@@ -61,7 +61,8 @@ class Ghostbuster(core.Agent):
         _core.Agent
         """
         if self.context.agent(self.myPrey) == None: 
-            print("winnerLoser", self.myPrey, "not in my rank = ",self.uid[2],flush=True)
+            print("winnerLoser", self.myPrey, 
+                  "not in my rank ("+str(self.uid[2])+")",flush=True)
             
         if (self.myPrey,self.myPrey[2]) not in ghostsToRequestOrUpdate:
             ghostsToRequestOrUpdate.append((self.myPrey,self.myPrey[2]))
@@ -71,19 +72,20 @@ class Ghostbuster(core.Agent):
 def restore_agent(agent_data: Tuple):
 
     uid=agent_data[0]
-
+    print('qui0', flush=True)
     if uid[1] == WinnerLoser.TYPE:
 
         if uid in agent_cache:   # look for agent_cache in model.py
+            print('qui1', flush=True)
             tmp = agent_cache[uid] # found
+            tmp.myWallet = agent_data[1] #restore data
 
-        else: #creation of an instance of the class
+        else: #creation of an instance of the class with its data
+            print('qui2', flush=True)
             tmp = WinnerLoser(uid[0], uid[2],agent_data[1])                
             agent_cache[uid] = tmp
 
-        # restore the agent state from the agent_data tuple
-        tmp.myWallet = agent_data[1]
-        print('qui', tmp.myWallet)
+        print('qui3', tmp.myWallet,flush=True)
         return tmp
              
     
