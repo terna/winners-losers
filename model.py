@@ -76,7 +76,9 @@ class Model:
         """
         self.runner.schedule_repeating_event(0, 1, self.lookAtWalletsAndGive)
         self.runner.schedule_repeating_event(0.1, 1, self.activateGhostbusters)
-        self.runner.schedule_repeating_event(0.2, 1, self.requestOrUpdateGhosts)
+        self.runner.schedule_repeating_event(0.2, 1, self.requestGhosts)
+        self.runner.schedule_repeating_event(0.3, 1, self.sync)
+        self.runner.schedule_repeating_event(0.4, 1, self.lookAtGhostWallets)
         
         """
         schedule_stop(at)
@@ -118,8 +120,9 @@ class Model:
         # ghostbuster agents
   
         if self.rank==0:
-            aGhostbuster = Ghostbuster(0,self.rank,self.context,(0,0,1))
-            self.context.add(aGhostbuster) 
+            for i in range(params['Ghostbuster.count']):
+                aGhostbuster = Ghostbuster(0,self.rank,self.context,(0,0,1))
+                self.context.add(aGhostbuster) 
             
         
     def lookAtWalletsAndGive(self):
@@ -204,7 +207,7 @@ class Model:
             for aGhostbuster in self.context.agents(agent_type=1):  
                 aGhostbuster.search(tick)
                 
-    def requestOrUpdateGhosts(self):       
+    def requestGhosts(self):       
         
         """
         https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
@@ -224,14 +227,41 @@ class Model:
         save() and return an agent.
 
         Returns
-        The list of requested agents.
+        ***The list of requested agents.
 
         Return type
         List[_core.Agent]
         """
-        self.context.request_agents(ghostsToRequestOrUpdate,restore_agent)
+        self.context.request_agents(ghostsToRequest,restore_agent)
         print("rank", self.rank, "agent_cache", agent_cache, flush=True)
-        print("rank", self.rank, "ghostsToRequestOrUpdate", ghostsToRequestOrUpdate, flush=True)
+        print("rank", self.rank, "ghostsToRequestOrUpdate", ghostsToRequest, flush=True)
+        
+        print("rank", self.rank, "the ghost exixts?", self.context.ghost_agent((0,0,1)),\
+             "count agents",len(list(self.context.agents())))
+        
+    def sync(self):
+        """
+        synchronize(restore_agent, sync_ghosts=True)
+        Synchronizes the model state across processes by moving agents, 
+        filling projection buffers with ghosts, updating ghosted state and so forth.
+
+        Parameters
+        restore_agent (Callable) – a callable that takes agent state data and returns 
+        an agent instance from that data. The data is a tuple whose first element 
+        is the agent’s unique id tuple, and the second element is the agent’s state, 
+        as returned by that agent’s type’s save() method.
+
+        sync_ghosts (bool) – if True, the ghosts in any SharedProjections and 
+        value layers associated with this SharedContext are also synchronized. 
+        Defaults to True.
+        """
+        self.context.synchronize(restore_agent)
+        
+    def lookAtGhostWallets(self):
+        
+        if self.context.ghost_agent((0,0,1)) != None:
+            print("rank", self.rank, "the ghost", self.context.ghost_agent((0,0,1)),\
+                  "has wallet",self.context.ghost_agent((0,0,1)).myWallet)
 
                 
     def finish(self):

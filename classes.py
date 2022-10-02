@@ -23,14 +23,21 @@ class WinnerLoser(core.Agent):
         list(agSet)[self.minWalletPosition].myWallet+=1
         self.myWallet-=1
         
-    def save(self) -> Tuple:
+    def save(self) -> Tuple: # mandatory
         """
         Saves the state of the WinnerLoser as a Tuple.
 
         Returns:
-            The saved state of this Walker.
+            The saved state of this WinnerLoser.
         """
         return (self.uid, self.myWallet)
+
+    def update(self, wallet: float): # mandatory
+        """
+        Updates the state of this agent when it is a ghost
+        agent on some rank other than its local one.
+        """
+        self.myWallet=wallet
 
 
         
@@ -64,28 +71,41 @@ class Ghostbuster(core.Agent):
             print("winnerLoser", self.myPrey, 
                   "not in my rank ("+str(self.uid[2])+")",flush=True)
             
-        if (self.myPrey,self.myPrey[2]) not in ghostsToRequestOrUpdate:
-            ghostsToRequestOrUpdate.append((self.myPrey,self.myPrey[2]))
-                
+        if (self.myPrey,self.myPrey[2]) not in ghostsToRequest:
+            ghostsToRequest.append((self.myPrey,self.myPrey[2]))
+ 
+    def save(self) -> Tuple: # mandatory
+        """
+        Saves the state of the WinnerLoser as a Tuple.
+
+        Returns:
+            The saved state of this WinnerLoser.
+        """
+        return (self.uid, self.myPrey,self.myContext)
+
+    def update(self, prey: Tuple, context: ctx): # mandatory
+        """
+        Updates the state of this agent when it is a ghost
+        agent on some rank other than its local one.
+        """
+        self.myPrey=prey # useful if the paey changes
+        self.myContext=context
+
             
             
 def restore_agent(agent_data: Tuple):
 
     uid=agent_data[0]
-    print('qui0', flush=True)
     if uid[1] == WinnerLoser.TYPE:
 
         if uid in agent_cache:   # look for agent_cache in model.py
-            print('qui1', flush=True)
             tmp = agent_cache[uid] # found
             tmp.myWallet = agent_data[1] #restore data
 
         else: #creation of an instance of the class with its data
-            print('qui2', flush=True)
             tmp = WinnerLoser(uid[0], uid[2],agent_data[1])                
             agent_cache[uid] = tmp
 
-        print('qui3', tmp.myWallet,flush=True)
         return tmp
              
     

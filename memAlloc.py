@@ -1,7 +1,8 @@
 
 agent_cache={} # dict with uid as keys and agents' tuples as values, 
-               # used by restore_agent (def in classes.py)
+               # used by restore_agent (def in classes.py) to avoid rebuild agents
+               # IS IT IN OUR CASE USEFUL?
     
-ghostsToRequestOrUpdate=[] # list of uid of ghosts, used by search function of
+ghostsToRequest=[] # list of uid of ghosts, used by search function of
                            # GhostBuster class
                            # and by requestOrUpdateGhosts(self) function of the model
