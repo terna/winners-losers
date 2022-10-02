@@ -30,6 +30,7 @@ class WinnerLoser(core.Agent):
         Returns:
             The saved state of this WinnerLoser.
         """
+        print("quiiiiiiiiiiiiiiiiiiiiiiii", flush=True)
         return (self.uid, self.myWallet)
 
     def update(self, wallet: float): # mandatory
@@ -38,7 +39,7 @@ class WinnerLoser(core.Agent):
         agent on some rank other than its local one.
         """
         self.myWallet=wallet
-
+        print("quaaaaaaaaaaaaaaaaaaaaaaaa", flush=True)
 
         
 class Ghostbuster(core.Agent):
@@ -90,12 +91,12 @@ class Ghostbuster(core.Agent):
         """
         self.myPrey=prey # useful if the paey changes
         self.myContext=context
-
             
             
 def restore_agent(agent_data: Tuple):
 
     uid=agent_data[0]
+    print("quoooooooooooooooooooooooooooo", flush=True)
     if uid[1] == WinnerLoser.TYPE:
 
         if uid in agent_cache:   # look for agent_cache in model.py

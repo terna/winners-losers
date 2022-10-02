@@ -166,7 +166,7 @@ class Model:
         """
 
         tick = self.runner.schedule.tick        
-        print("rank",self.rank,"at tick",tick,"clock",time.time(),\
+        print("tick",tick,"rank",self.rank,"clock",time.time(),\
                             "\nwallets",list(aWinnerLoser.myWallet\
                             for aWinnerLoser in self.context.agents(agent_type=0)),\
                             flush=True)
@@ -207,7 +207,8 @@ class Model:
             for aGhostbuster in self.context.agents(agent_type=1):  
                 aGhostbuster.search(tick)
                 
-    def requestGhosts(self):       
+    def requestGhosts(self): 
+        tick = self.runner.schedule.tick
         
         """
         https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
@@ -233,11 +234,12 @@ class Model:
         List[_core.Agent]
         """
         self.context.request_agents(ghostsToRequest,restore_agent)
-        print("rank", self.rank, "agent_cache", agent_cache, flush=True)
-        print("rank", self.rank, "ghostsToRequestOrUpdate", ghostsToRequest, flush=True)
+        #print("tick",tick,"rank", self.rank, "agent_cache", agent_cache, flush=True)
+        #print("tick",tick,"rank", self.rank, "ghostsToRequest", ghostsToRequest, flush=True)
         
-        print("rank", self.rank, "the ghost exixts?", self.context.ghost_agent((0,0,1)),\
-             "count agents",len(list(self.context.agents())))
+        print("tick",tick,"rank", self.rank, "the ghost exixts?",\
+              self.context.ghost_agent((0,0,1)),\
+             "count agents",len(list(self.context.agents())), flush=True)
         
     def sync(self):
         """
@@ -258,9 +260,11 @@ class Model:
         self.context.synchronize(restore_agent)
         
     def lookAtGhostWallets(self):
+        tick = self.runner.schedule.tick
         
         if self.context.ghost_agent((0,0,1)) != None:
-            print("rank", self.rank, "the ghost", self.context.ghost_agent((0,0,1)),\
+            print("tick",tick,"rank", self.rank, "the ghost",\
+                  self.context.ghost_agent((0,0,1)),\
                   "has wallet",self.context.ghost_agent((0,0,1)).myWallet)
 
                 
