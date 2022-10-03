@@ -75,10 +75,10 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         self.runner.schedule_repeating_event(0, 1, self.lookAtWalletsAndGive)
-        self.runner.schedule_repeating_event(0.1, 1, self.activateGhostbusters)
+        self.runner.schedule_repeating_event(0.1, 1, self.ghostbustersSearching)
         self.runner.schedule_repeating_event(0.2, 1, self.requestGhosts)
         self.runner.schedule_repeating_event(0.3, 1, self.sync)
-        self.runner.schedule_repeating_event(0.4, 1, self.lookAtGhostWallets)
+        self.runner.schedule_repeating_event(0.4, 1, self.ghostbustersLookAtGhostWallets)
         
         """
         schedule_stop(at)
@@ -176,7 +176,7 @@ class Model:
             
             aWinnerLoser.give(self.context.agents(agent_type=0))
             
-    def activateGhostbusters(self):
+    def ghostbustersSearching(self):
         tick = self.runner.schedule.tick
 
         """
@@ -238,7 +238,8 @@ class Model:
         #print("tick",tick,"rank", self.rank, "ghostsToRequest", ghostsToRequest, flush=True)
         
         print("tick",tick,"rank", self.rank, "the ghost exixts?",\
-              self.context.ghost_agent((0,0,1)),\
+              "ghost agent = ",self.context.ghost_agent((0,0,1)),\
+              "actual agent = ",self.context.agent((0,0,1)),\
              "count agents",len(list(self.context.agents())), flush=True)
         
     def sync(self):
@@ -259,15 +260,18 @@ class Model:
         """
         self.context.synchronize(restore_agent)
         
-    def lookAtGhostWallets(self):
+    def ghostbustersLookAtGhostWallets(self):
         tick = self.runner.schedule.tick
         
-        if self.context.ghost_agent((0,0,1)) != None:
-            print("tick",tick,"rank", self.rank, "the ghost",\
-                  self.context.ghost_agent((0,0,1)),\
-                  "has wallet",self.context.ghost_agent((0,0,1)).myWallet)
-
-                
+        # check if ghostbusters exist in the current layer
+        atype_id = 1
+        # _agents_by_type from Nick mail 20220926
+        has_type = True if atype_id in self.context._agents_by_type and\
+                   len(self.context._agents_by_type[atype_id]) > 0 else False
+        if has_type:
+            for aGhostbuster in self.context.agents(agent_type=1):
+                aGhostbuster.lookAtGhostWallets(tick,self.rank,self.context)
+                        
     def finish(self):
         tick = self.runner.schedule.tick
         print("ciao by rank",self.rank,"at tick",tick,"clock",time.time(),flush=True)

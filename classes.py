@@ -74,6 +74,14 @@ class Ghostbuster(core.Agent):
             
         if (self.myPrey,self.myPrey[2]) not in ghostsToRequest:
             ghostsToRequest.append((self.myPrey,self.myPrey[2]))
+            
+    def lookAtGhostWallets(self,tick,rank,context):
+        
+        if context.ghost_agent(self.myPrey) != None:
+            print("tick",tick,"rank",rank, "the ghost",\
+                  context.ghost_agent(self.myPrey),\
+                  "has wallet",context.ghost_agent(self.myPrey).myWallet)
+
  
     def save(self) -> Tuple: # mandatory
         """
