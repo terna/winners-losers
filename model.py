@@ -125,25 +125,8 @@ class Model:
                 self.context.add(aGhostbuster) 
             
         
-    def lookAtWalletsAndGive(self):
+    def lookAtWalletsAndGive(self):        
         
-        """
-        NOT NECESARY IF NO PROJECTIONS
-        synchronize(restore_agent, sync_ghosts=True)
-        Synchronizes the model state across processes by moving agents, 
-        filling projection buffers with ghosts, updating ghosted state and so forth.
-
-        Parameters
-        restore_agent (Callable) – a callable that takes agent state data and 
-        returns an agent instance from that data. The data is a tuple whose first 
-        element is the agent’s unique id tuple, and the second element is the 
-        agent’s state, as returned by that agent’s type’s save() method.
-
-        sync_ghosts (bool) – if True, the ghosts in any SharedProjections and 
-        value layers associated with this SharedContext are also synchronized. 
-        Defaults to True.
-        """
-                
         """
         agents(agent_type=None, count=None, shuffle=False)
         Gets the agents in this SharedContext, optionally of the specified type, count 
