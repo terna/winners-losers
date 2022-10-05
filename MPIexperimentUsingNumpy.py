@@ -20,4 +20,6 @@ for k in range(rankNum):
 
     comm.Bcast(data[k], root=k)
     
-    print(time.time(),"rank", rank,"\n",data[k],flush=True)
+    print(time.time(),"rank", rank,"\n",data,flush=True)
+    
+    
