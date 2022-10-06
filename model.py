@@ -217,8 +217,8 @@ class Model:
         List[_core.Agent]
         """
         self.context.request_agents(ghostsToRequest,restore_agent)
-        #print("tick",tick,"rank", self.rank, "agent_cache", agent_cache, flush=True)
-        #print("tick",tick,"rank", self.rank, "ghostsToRequest", ghostsToRequest, flush=True)
+        print("***tick",tick,"rank", self.rank, "agent_cache", agent_cache, flush=True)
+        print("***tick",tick,"rank", self.rank, "ghostsToRequest", ghostsToRequest, flush=True)
         
         print("tick",tick,"rank", self.rank, "the ghost exixts?",\
               "ghost agent = ",self.context.ghost_agent((0,0,1)),\
