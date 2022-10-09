@@ -9,21 +9,24 @@ rankNum = comm.Get_size()
 
 print("\n"+str(rank)+"/"+str(rankNum))
 
-if rank==0:              # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
+if rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
     mToBcast=[0,[0,((0,0,1),1)],
             [1,((0,1,0),0)]]
     for k in range(2,rankNum):
         mToBcast.append([k])
     #print(mBcast)
 
-if rank!=0:              # example [1|2,[0],[1],[2]] with rankNum -> 3
+if rank!=0:        # example [1|2,[0],[1],[2]] with rankNum -> 3
     mToBcast=[rank]
     for k in range(rankNum):
         mToBcast.append([k])
     #print(mBcast)
     
+countB=45+(rankNum-1)*5
+str_countB="S"+str(countB)
+    
 mToBcast=json.dumps(mToBcast)
-mToBcast=np.array(mToBcast, dtype='S50')
+mToBcast=np.array(mToBcast, dtype=str_countB) #'S80')
 mToBcast=mToBcast.tobytes()
 print( "before bcast", rank, mToBcast)
 
@@ -32,54 +35,28 @@ for k in range(rankNum):
     if rank == k:
         data[k] = mToBcast
     else:
-        data[k] = bytearray(50)
+        data[k] = bytearray(countB) #80)
 for k in range(rankNum):
     comm.Bcast(data[k], root=k)
 
-#print("\nafter bcast", rank, data)
-
 for k in range(rankNum):
     data[k]=data[k].decode().rstrip('\x00')
-    
-#print("\nafter bcastII", rank, data)
-
-#for k in range(rankNum):
-#    print(type(data[k]))
 
 for k in range(rankNum):
     data[k]=json.loads(data[k])
 
-print("\nafter bcastIII", rank, data)
+print("\nafter bcast", rank, data)
 
-    
+# collecting for each rank
 
-"""
-data=np.frombuffer(data, dtype='S50', count=1)
-data = data.reshape((1,1))
+toRequest=[]
 
-print("\n",rank, data,"\n")
-"""
+for anItem in data:
+        anItem.pop(0)
+        for aSubitem in anItem:
+            if len(aSubitem)>1 and aSubitem[0]==rank: 
+                print(aSubitem)
+                if not tuple(aSubitem[1]) in toRequest:
+                    toRequest.append(tuple(aSubitem[1]))
 
-"""
-print(mToBcast)
-print(type(mToBcast),len(mToBcast))
-if rank==0:
-    print(json.loads(mToBcast))
-"""
-    
-"""
-myMa = [['zzz', '2', '-1'], ['xxx', '5', '-99'], ['zzzabcdefghilmn', '2', '-1']]
-myMa_arr = np.array(myMa, dtype='S10')
-myMa_arr_b = myMa_arr.tobytes()
-
-if rank == 0:
-    data = myMa_arr_b
-else:
-    data = bytearray(90)
-
-comm.Bcast(data, root=0)
-
-data=np.frombuffer(data, dtype='S10', count=9)
-data = data.reshape((3, 3))
-print(rank, data)
-"""
+print("rank",rank,"requests",toRequest)    
