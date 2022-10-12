@@ -193,6 +193,27 @@ class Model:
     def requestGhosts(self): 
         tick = self.runner.schedule.tick
         
+        #building the data matrix to be broadcasted
+        if rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
+            mToBcast=[0,[0,((0,0,1),1)],
+                    [1,((0,1,0),0)]]
+            for k in range(2,rankNum):
+                mToBcast.append([k])
+    
+
+        if rank!=0:        # example [1|2,[0],[1],[2]] with rankNum -> 3
+            mToBcast=[rank]
+            for k in range(rankNum):
+                mToBcast.append([k])
+
+    
+        countB=45+(rankNum-1)*5
+        str_countB="S"+str(countB)
+    
+        mToBcast=json.dumps(mToBcast)
+        mToBcast=np.array(mToBcast, dtype=str_countB) #'S80')
+        mToBcast=mToBcast.tobytes()        
+        
         """
         https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
         request_agents(requested_agents, create_agent)
