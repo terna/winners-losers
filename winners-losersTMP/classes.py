@@ -30,7 +30,7 @@ class WinnerLoser(core.Agent):
         Returns:
             The saved state of this WinnerLoser.
         """
-        print("quiiiiiiiiiiiiiiiiiiiiiiii", flush=True)
+        print("quiiiiiiiiiiiiiiiiiiiiiiii myWallet", self.myWallet, flush=True)
         return (self.uid, self.myWallet)
 
     def update(self, wallet: float): # mandatory
@@ -50,7 +50,7 @@ class Ghostbuster(core.Agent):
         super().__init__(id=local_id, type=Ghostbuster.TYPE, rank=rank)
         
         self.myPrey=prey
-        self.context=context
+        self.myContext=context
         
     def search(self,tick):
         print("tick",tick,"ghostbuster",self.uid, "searching",self.myPrey,flush=True)
@@ -72,8 +72,8 @@ class Ghostbuster(core.Agent):
             print("winnerLoser", self.myPrey, 
                   "not in my rank ("+str(self.uid[2])+")",flush=True)
             
-        if (self.myPrey,self.myPrey[2]) not in ghostsToRequest:
-            ghostsToRequest.append((self.myPrey,self.myPrey[2]))
+            if (self.myPrey,self.myPrey[2]) not in ghostsToRequest:  
+                ghostsToRequest.append((self.myPrey,self.myPrey[2]))
             
     def lookAtGhostWallets(self,tick,rank,context):
         

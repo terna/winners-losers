@@ -5,6 +5,8 @@ from repast4py import schedule
 from repast4py import context as ctx
 import repast4py
 import time
+import json
+import numpy as np
 """
 time() -> floating point number
         Return the current time in seconds since the Epoch.
@@ -30,6 +32,8 @@ class Model:
 
         self.rank    = comm.Get_rank()
         self.rankNum = comm.Get_size() #pt
+        
+        self.comm = comm
         
         #print(5, "rank", self.rank, "rank number", self.rankNum)
         
@@ -75,7 +79,7 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         self.runner.schedule_repeating_event(0, 1, self.lookAtWalletsAndGive)
-        self.runner.schedule_repeating_event(0.1, 1, self.ghostbustersSearching)
+        #self.runner.schedule_repeating_event(0.1, 1, self.ghostbustersSearching)
         self.runner.schedule_repeating_event(0.2, 1, self.requestGhosts)
         self.runner.schedule_repeating_event(0.3, 1, self.sync)
         self.runner.schedule_repeating_event(0.4, 1, self.ghostbustersLookAtGhostWallets)
@@ -159,7 +163,7 @@ class Model:
             
             aWinnerLoser.give(self.context.agents(agent_type=0))
             
-    def ghostbustersSearching(self):
+    def ghostbustersSearching(self):    #UNUSEFUL IN TMP CASE
         tick = self.runner.schedule.tick
 
         """
@@ -194,32 +198,61 @@ class Model:
         tick = self.runner.schedule.tick
         
         #building the data matrix to be broadcasted
-        if rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
+        if self.rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
             mToBcast=[0,[0,((0,0,1),1)],
-                    [1,((0,1,0),0)]]
-            for k in range(2,rankNum):
+                        [1,((0,1,0),0)]]
+            for k in range(2,self.rankNum):
                 mToBcast.append([k])
     
 
-        if rank!=0:        # example [1|2,[0],[1],[2]] with rankNum -> 3
-            mToBcast=[rank]
-            for k in range(rankNum):
+        if self.rank!=0:        # example [1|2,[0],[1],[2]] with rankNum -> 3
+            mToBcast=[self.rank]
+            for k in range(self.rankNum):
                 mToBcast.append([k])
 
     
-        countB=45+(rankNum-1)*5
+        countB=45+(self.rankNum-1)*5
         str_countB="S"+str(countB)
     
         mToBcast=json.dumps(mToBcast)
         mToBcast=np.array(mToBcast, dtype=str_countB) #'S80')
-        mToBcast=mToBcast.tobytes()        
+        mToBcast=mToBcast.tobytes()    
+        
+        data=[""]*self.rankNum
+        for k in range(self.rankNum):
+            if self.rank == k:
+                data[k] = mToBcast
+            else:
+                data[k] = bytearray(countB) #80)
+        for k in range(self.rankNum):
+            self.comm.Bcast(data[k], root=k)
+
+        for k in range(self.rankNum):
+            data[k]=data[k].decode().rstrip('\x00')
+
+        for k in range(self.rankNum):
+            data[k]=json.loads(data[k])
+            
+
+        for anItem in data:
+            anItem.pop(0)
+            for aSubitem in anItem: 
+                if len(aSubitem)>1 and aSubitem[0]==self.rank: 
+                    aaSubitem = aSubitem[1][0]
+                    aaSubitem = tuple(aaSubitem)
+                    aSubitem=(aSubitem[0], (aaSubitem, aSubitem[1][1]))
+                    
+                    if not tuple(aSubitem[1]) in ghostsToRequest:
+                        ghostsToRequest.append(tuple(aSubitem[1]))
+        print(self.rank, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", ghostsToRequest)
+
         
         """
         https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
         request_agents(requested_agents, create_agent)
         Requests agents from other ranks to be copied to this rank as ghosts.
 
-        !!!!This is a collective operation and all ranks must call it, regardless 
+        !!!! This is a collective operation and all ranks must call it, regardless 
         of whether agents are being requested by that rank. The requested agents 
         will be automatically added as ghosts to this rank.
 
