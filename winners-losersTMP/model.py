@@ -246,7 +246,8 @@ class Model:
                     
                     if not tuple(aSubitem[1]) in ghostsToRequest:
                         ghostsToRequest.append(tuple(aSubitem[1]))
-        print(self.rank, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", ghostsToRequest)
+        print(self.rank, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", ghostsToRequest,\
+             flush=True)
         
         
         """
