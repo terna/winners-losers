@@ -90,6 +90,7 @@ class Ghostbuster(core.Agent):
         Returns:
             The saved state of this WinnerLoser.
         """
+        print("quIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII myPrey", self.myPrey, flush=True)
         return (self.uid, self.myPrey, self.myContext)
 
     def update(self, prey: Tuple, context: ctx): # mandatory
@@ -97,17 +98,19 @@ class Ghostbuster(core.Agent):
         Updates the state of this agent when it is a ghost
         agent on some rank other than its local one.
         """
-        self.myPrey=prey # useful if the paey changes
+        self.myPrey=prey # useful if the prey changes
         self.myContext=context
+        print("quAAAAAAAAAAAAAAAAAAAAAAAAA", flush=True)
             
             
 def restore_agent(agent_data: Tuple):
 
     uid=agent_data[0]
-    print("quoooooooooooooooooooooooooooo", flush=True)
+    
 
     if uid[1] == WinnerLoser.TYPE:
-
+        print("quoooooooooooooooooooooooooooo", flush=True)
+    
         if uid in agent_cache:   # look for agent_cache in model.py
             tmp = agent_cache[uid] # found
             tmp.myWallet = agent_data[1] #restore data
@@ -119,7 +122,8 @@ def restore_agent(agent_data: Tuple):
         return tmp
              
     if uid[1] == Ghostbuster.TYPE:
-
+        print("quOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", flush=True)
+    
         if uid in agent_cache:   # look for agent_cache in model.py
             tmp = agent_cache[uid] # found
             tmp.myPrey = agent_data[1] #restore data

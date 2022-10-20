@@ -197,9 +197,11 @@ class Model:
     def requestGhosts(self): 
         tick = self.runner.schedule.tick
         
+        print("@@@@@@@@ tick",tick,"rank", self.rank)
+        
         #building the data matrix to be broadcasted
         if self.rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
-            mToBcast=[0,[0,((0,0,1),1)],
+            mToBcast=[0,[0,((0,0,1),1)], 
                         [1,((0,1,0),0)]]
             for k in range(2,self.rankNum):
                 mToBcast.append([k])
