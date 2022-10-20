@@ -245,7 +245,7 @@ class Model:
                     if not tuple(aSubitem[1]) in ghostsToRequest:
                         ghostsToRequest.append(tuple(aSubitem[1]))
         print(self.rank, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", ghostsToRequest)
-
+        
         
         """
         https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
