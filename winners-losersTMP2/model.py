@@ -1,8 +1,9 @@
 
-from mpi4py import MPI
+#from mpi4py import MPI
+from MPIandContext import *
 from typing import Dict
 from repast4py import schedule
-from repast4py import context as ctx
+#from repast4py import context as ctx
 import repast4py
 import time
 import json
@@ -28,19 +29,19 @@ class Model:
         comm: the mpi communicator over which the model is distributed.
         params: the simulation input parameters
     """
-    def __init__(self, comm: MPI.Intracomm, params: Dict):
+    def __init__(self, params: Dict):
 
-        self.rank    = comm.Get_rank()
-        self.rankNum = comm.Get_size() #pt
+        #self.rank    = comm.Get_rank()
+        #self.rankNum = comm.Get_size() #pt
         
-        self.comm = comm
+        #self.comm = comm
         
         #print(5, "rank", self.rank, "rank number", self.rankNum)
         
         
         # create the context to hold the agents and manage cross process
         # synchronization
-        self.context = ctx.SharedContext(comm)
+        #self.context = ctx.SharedContext(comm)
         
         # create the schedule
         # https://repast.github.io/repast4py.site/apidoc/source/repast4py.schedule.html
@@ -108,25 +109,25 @@ class Model:
         repast4py.random.init(rng_seed=None)
         Initializes the default random number generator using the specified seed.
         """
-        repast4py.random.init(rng_seed=params['myRandom.seed'][self.rank])
+        repast4py.random.init(rng_seed=params['myRandom.seed'][rank])
         rng = repast4py.random.default_rng 
         
         # winnerLoser agents
         
-        for i in range(params['WinnerLoser.count'] // self.rankNum): 
+        for i in range(params['WinnerLoser.count'] // rankNum): 
                                                 #to subdivide the total #pt
             # create and add the agent to the context
             aWallet=10 * rng.random()
             #print(aWallet,flush=True)
-            aWinnerLoser = WinnerLoser(i,self.rank,aWallet)
-            self.context.add(aWinnerLoser)
+            aWinnerLoser = WinnerLoser(i,rank,aWallet)
+            context.add(aWinnerLoser)
             
         # ghostbuster agents
   
-        if self.rank==0:
+        if rank==0:
             for i in range(params['Ghostbuster.count']):
-                aGhostbuster = Ghostbuster(0,self.rank,self.context,(0,0,1))
-                self.context.add(aGhostbuster) 
+                aGhostbuster = Ghostbuster(0,rank,(0,0,1))
+                context.add(aGhostbuster) 
             
         
     def lookAtWalletsAndGive(self):        
@@ -153,15 +154,15 @@ class Model:
         """
 
         tick = self.runner.schedule.tick        
-        print("tick",tick,"rank",self.rank,"clock",time.time(),\
+        print("tick",tick,"rank",rank,"clock",time.time(),\
                             "\nwallets",list(aWinnerLoser.myWallet\
-                            for aWinnerLoser in self.context.agents(agent_type=0)),\
+                            for aWinnerLoser in context.agents(agent_type=0)),\
                             flush=True)
                 
-        for aWinnerLoser in self.context.agents(agent_type=0):
-            aWinnerLoser.lookForMinWallet(self.context.agents(agent_type=0))
+        for aWinnerLoser in context.agents(agent_type=0):
+            aWinnerLoser.lookForMinWallet(context.agents(agent_type=0))
             
-            aWinnerLoser.give(self.context.agents(agent_type=0))
+            aWinnerLoser.give(context.agents(agent_type=0))
             
     def ghostbustersSearching(self):    #UNUSEFUL IN TMP CASE
         tick = self.runner.schedule.tick
@@ -188,65 +189,65 @@ class Model:
 
         atype_id = 1
         # _agents_by_type from Nick mail 20220926
-        has_type = True if atype_id in self.context._agents_by_type and\
-                   len(self.context._agents_by_type[atype_id]) > 0 else False
+        has_type = True if atype_id in context._agents_by_type and\
+                   len(context._agents_by_type[atype_id]) > 0 else False
         if has_type:
-            for aGhostbuster in self.context.agents(agent_type=1):  
+            for aGhostbuster in context.agents(agent_type=1):  
                 aGhostbuster.search(tick)
                 
     def requestGhosts(self): 
         tick = self.runner.schedule.tick
         
-        print("@@@@@@@@ tick",tick,"rank", self.rank)
+        print("@@@@@@@@ tick",tick,"rank", rank)
         
         #building the data matrix to be broadcasted
-        if self.rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
+        if rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
             mToBcast=[0,[0,((0,0,1),1)], 
                         [1,((0,1,0),0)]]
-            for k in range(2,self.rankNum):
+            for k in range(2,rankNum):
                 mToBcast.append([k])
     
 
-        if self.rank!=0:        # example [1|2,[0],[1],[2]] with rankNum -> 3
-            mToBcast=[self.rank]
-            for k in range(self.rankNum):
+        if rank!=0:        # example [1|2,[0],[1],[2]] with rankNum -> 3
+            mToBcast=[rank]
+            for k in range(rankNum):
                 mToBcast.append([k])
 
     
-        countB=45+(self.rankNum-1)*5
+        countB=45+(rankNum-1)*5
         str_countB="S"+str(countB)
     
         mToBcast=json.dumps(mToBcast)
         mToBcast=np.array(mToBcast, dtype=str_countB) #'S80')
         mToBcast=mToBcast.tobytes()    
         
-        data=[""]*self.rankNum
-        for k in range(self.rankNum):
-            if self.rank == k:
+        data=[""]*rankNum
+        for k in range(rankNum):
+            if rank == k:
                 data[k] = mToBcast
             else:
                 data[k] = bytearray(countB) #80)
-        for k in range(self.rankNum):
-            self.comm.Bcast(data[k], root=k)
+        for k in range(rankNum):
+            comm.Bcast(data[k], root=k)
 
-        for k in range(self.rankNum):
+        for k in range(rankNum):
             data[k]=data[k].decode().rstrip('\x00')
 
-        for k in range(self.rankNum):
+        for k in range(rankNum):
             data[k]=json.loads(data[k])
             
 
         for anItem in data:
             anItem.pop(0)
             for aSubitem in anItem: 
-                if len(aSubitem)>1 and aSubitem[0]==self.rank: 
+                if len(aSubitem)>1 and aSubitem[0]==rank: 
                     aaSubitem = aSubitem[1][0]
                     aaSubitem = tuple(aaSubitem)
                     aSubitem=(aSubitem[0], (aaSubitem, aSubitem[1][1]))
                     
                     if not tuple(aSubitem[1]) in ghostsToRequest:
                         ghostsToRequest.append(tuple(aSubitem[1]))
-        print(self.rank, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", ghostsToRequest,\
+        print(rank, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", ghostsToRequest,\
              flush=True)
         
         
@@ -273,14 +274,14 @@ class Model:
         Return type
         List[_core.Agent]
         """
-        self.context.request_agents(ghostsToRequest,restore_agent)
-        print("***tick",tick,"rank", self.rank, "agent_cache", agent_cache, flush=True)
-        print("***tick",tick,"rank", self.rank, "ghostsToRequest", ghostsToRequest, flush=True)
+        context.request_agents(ghostsToRequest,restore_agent)
+        print("***tick",tick,"rank", rank, "agent_cache", agent_cache, flush=True)
+        print("***tick",tick,"rank", rank, "ghostsToRequest", ghostsToRequest, flush=True)
         
-        print("tick",tick,"rank", self.rank, "the ghost exixts?",\
-              "ghost agent = ",self.context.ghost_agent((0,0,1)),\
-              "actual agent = ",self.context.agent((0,0,1)),\
-             "count agents",len(list(self.context.agents())), flush=True)
+        print("tick",tick,"rank", rank, "the ghost exixts?",\
+              "ghost agent = ",context.ghost_agent((0,0,1)),\
+              "actual agent = ",context.agent((0,0,1)),\
+             "count agents",len(list(context.agents())), flush=True)
         
     def sync(self):
         """
@@ -298,7 +299,7 @@ class Model:
         value layers associated with this SharedContext are also synchronized. 
         Defaults to True.
         """
-        self.context.synchronize(restore_agent)
+        context.synchronize(restore_agent)
         
     def ghostbustersLookAtGhostWallets(self):
         tick = self.runner.schedule.tick
@@ -306,15 +307,15 @@ class Model:
         # check if ghostbusters exist in the current layer
         atype_id = 1
         # _agents_by_type from Nick mail 20220926
-        has_type = True if atype_id in self.context._agents_by_type and\
-                   len(self.context._agents_by_type[atype_id]) > 0 else False
+        has_type = True if atype_id in context._agents_by_type and\
+                   len(context._agents_by_type[atype_id]) > 0 else False
         if has_type:
-            for aGhostbuster in self.context.agents(agent_type=1):
-                aGhostbuster.lookAtGhostWallets(tick,self.rank,self.context)
+            for aGhostbuster in context.agents(agent_type=1):
+                aGhostbuster.lookAtGhostWallets(tick,rank)
                         
     def finish(self):
         tick = self.runner.schedule.tick
-        print("ciao by rank",self.rank,"at tick",tick,"clock",time.time(),flush=True)
+        print("ciao by rank",rank,"at tick",tick,"clock",time.time(),flush=True)
         
     def start(self):
         self.runner.execute()
