@@ -5,15 +5,8 @@ from typing import Dict
 from repast4py import schedule
 #from repast4py import context as ctx
 import repast4py
-import time
 import json
 import numpy as np
-"""
-time() -> floating point number
-        Return the current time in seconds since the Epoch.
-        Fractions of a second may be present if the system clock provides them.
-to know the Epoch, time.gmtime(0) (in Unix: 19700101)
-"""
 from classes import *
 from memAlloc import *
 
@@ -126,7 +119,7 @@ class Model:
   
         if rank==0:
             for i in range(params['Ghostbuster.count']):
-                aGhostbuster = Ghostbuster(0,rank,(0,0,1))
+                aGhostbuster = Ghostbuster(0,rank,(0,0,1),params['ratio'])
                 context.add(aGhostbuster) 
             
         
@@ -154,7 +147,7 @@ class Model:
         """
 
         tick = self.runner.schedule.tick        
-        print("tick",tick,"rank",rank,"clock",time.time(),\
+        print("tick",tick,"rank",rank,"clock",T(),\
                             "\nwallets",list(aWinnerLoser.myWallet\
                             for aWinnerLoser in context.agents(agent_type=0)),\
                             flush=True)
@@ -315,7 +308,7 @@ class Model:
                         
     def finish(self):
         tick = self.runner.schedule.tick
-        print("ciao by rank",rank,"at tick",tick,"clock",time.time(),flush=True)
+        print("ciao by rank",rank,"at tick",tick,"clock",T(),flush=True)
         
     def start(self):
         self.runner.execute()

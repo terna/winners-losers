@@ -47,10 +47,11 @@ class Ghostbuster(core.Agent):
 
     TYPE = 1
     
-    def __init__(self, local_id: int, rank: int, prey: Tuple):
+    def __init__(self, local_id: int, rank: int, prey: Tuple, ratio: float):
         super().__init__(id=local_id, type=Ghostbuster.TYPE, rank=rank)
         
         self.myPrey=prey
+        self.myRatio=ratio
 
         
     def search(self,tick):
@@ -81,7 +82,7 @@ class Ghostbuster(core.Agent):
         if context.ghost_agent(self.myPrey) != None:
             print("tick",tick,"rank",rank, "the ghost",\
                   context.ghost_agent(self.myPrey),\
-                  "has wallet",context.ghost_agent(self.myPrey).myWallet)
+                  "has wallet",context.ghost_agent(self.myPrey).myWallet,flush=True)
 
  
     def save(self) -> Tuple: # mandatory
@@ -92,14 +93,19 @@ class Ghostbuster(core.Agent):
             The saved state of this WinnerLoser.
         """
         print("quIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII myPrey", self.myPrey, flush=True)
-        return (self.uid, self.myPrey)
+        # The first element of this full state tuple is the agent’s unique id, 
+        # itself a tuple (accessed via the uid attribute), and the 
+        # second is the dynamic state of that agent. 
+        return (self.uid, (self.myPrey, self.myRatio))
 
-    def update(self, prey: Tuple): # mandatory
+    def update(self, dynState: Tuple): #prey: Tuple, ratio: float): # mandatory
+        # look at row 239 of context.py
         """
         Updates the state of this agent when it is a ghost
         agent on some rank other than its local one.
         """
-        self.myPrey=prey # useful if the prey changes
+        self.myPrey=dynState[0] #prey # useful if the prey changes
+        self.myRatio=dynState[1] #ratio
         #self.myContext=context
         print("quAAAAAAAAAAAAAAAAAAAAAAAAA", flush=True)
             
@@ -107,7 +113,6 @@ class Ghostbuster(core.Agent):
 def restore_agent(agent_data: Tuple):
 
     uid=agent_data[0]
-    
 
     if uid[1] == WinnerLoser.TYPE:
         print("quoooooooooooooooooooooooooooo", flush=True)
@@ -127,11 +132,12 @@ def restore_agent(agent_data: Tuple):
     
         if uid in agent_cache:   # look for agent_cache in model.py
             tmp = agent_cache[uid] # found
-            tmp.myPrey = agent_data[1] #restore data
+            tmp.myPrey = agent_data[1][0] #restore data
+            tmp.myRatio = agent_data[1][1] #restore data
             #tmp.myContext = agent_data[2] #restore data
 
         else: #creation of an instance of the class with its data
-            tmp = Ghostbuster(uid[0], uid[2],agent_data[1])                
+            tmp = Ghostbuster(uid[0], uid[2],agent_data[1][0],agent_data[1])  
             agent_cache[uid] = tmp
 
         return tmp
