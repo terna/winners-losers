@@ -73,10 +73,7 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         self.runner.schedule_repeating_event(0, 1, self.lookAtWalletsAndGive)
-        #self.runner.schedule_repeating_event(0.1, 1, self.ghostbustersSearching)
-        self.runner.schedule_repeating_event(0.2, 1, self.requestGhosts)
         self.runner.schedule_repeating_event(0.3, 1, self.sync)
-        self.runner.schedule_repeating_event(0.4, 1, self.ghostbustersLookAtGhostWallets)
         
         """
         schedule_stop(at)
@@ -115,12 +112,6 @@ class Model:
             aWinnerLoser = WinnerLoser(i,rank,aWallet)
             context.add(aWinnerLoser)
             
-        # ghostbuster agents
-  
-        if rank==0:
-            for i in range(params['Ghostbuster.count']):
-                aGhostbuster = Ghostbuster(0,rank,(0,0,1),params['ratio'])
-                context.add(aGhostbuster) 
             
         
     def lookAtWalletsAndGive(self):        
@@ -157,37 +148,7 @@ class Model:
             
             aWinnerLoser.give(context.agents(agent_type=0))
             
-    def ghostbustersSearching(self):    #UNUSEFUL IN TMP CASE
-        tick = self.runner.schedule.tick
-
-        """
-        https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
-        
-        size(agent_type_ids=None)
-        Gets the number of local agents in this SharedContext, optionally by type.
-
-        Parameters
-        agent_type_ids (List[int]) – a list of the agent type ids identifying the 
-        agent types to count. If this is None then the total size is returned with 
-        an agent type id of -1.
-
-        Returns
-        A dictionary containing the counts (the dict values) by agent type (the 
-        dict keys).
-
-        Return type
-        dict
-
-        """
-
-        atype_id = 1
-        # _agents_by_type from Nick mail 20220926
-        has_type = True if atype_id in context._agents_by_type and\
-                   len(context._agents_by_type[atype_id]) > 0 else False
-        if has_type:
-            for aGhostbuster in context.agents(agent_type=1):  
-                aGhostbuster.search(tick)
-                
+            
     def requestGhosts(self): 
         tick = self.runner.schedule.tick
         
@@ -195,8 +156,7 @@ class Model:
         
         #building the data matrix to be broadcasted
         if rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
-            mToBcast=[0,[0,((0,0,1),1)], 
-                        [1,((0,1,0),0)]]
+            mToBcast=[0,[0,((0,0,1),1)]]
             for k in range(2,rankNum):
                 mToBcast.append([k])
     
@@ -293,18 +253,7 @@ class Model:
         Defaults to True.
         """
         context.synchronize(restore_agent)
-        
-    def ghostbustersLookAtGhostWallets(self):
-        tick = self.runner.schedule.tick
-        
-        # check if ghostbusters exist in the current layer
-        atype_id = 1
-        # _agents_by_type from Nick mail 20220926
-        has_type = True if atype_id in context._agents_by_type and\
-                   len(context._agents_by_type[atype_id]) > 0 else False
-        if has_type:
-            for aGhostbuster in context.agents(agent_type=1):
-                aGhostbuster.lookAtGhostWallets(tick,rank)
+    
                         
     def finish(self):
         tick = self.runner.schedule.tick
