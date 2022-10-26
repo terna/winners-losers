@@ -13,6 +13,11 @@ class WinnerLoser(core.Agent):
         super().__init__(id=local_id, type=WinnerLoser.TYPE, rank=rank)
 
         self.myWallet = wallet
+        self.counterpartRank = -1
+        self.counterpartLocalId = -1
+        
+    def chooseCounterpart(self):
+        pass
         
     def lookForMinWallet(self,agSet):
 
