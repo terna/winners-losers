@@ -7,5 +7,5 @@ def run(params: Dict):
     #print (4, params['random.seed'])
     #print (4.1, params['a'])
     
-    model = Model(MPI.COMM_WORLD, params)
+    model = Model(params) #Model(MPI.COMM_WORLD, params)
     model.start()
