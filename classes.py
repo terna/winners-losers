@@ -1,6 +1,7 @@
 
 from repast4py import core
-from typing import Tuple
+from typing import Tuple, List
+import json
 #from repast4py import context as ctx
 from memAlloc import *
 from MPIandContext import *
@@ -20,8 +21,8 @@ class WinnerLoser(core.Agent):
         self.haveGhost = [False] * rankNum
         self.haveGhost[rank] = True
         
-    def requestingGhostIfAny(self) -> Tuple:
-        self.counterpartRank = rng.integers(0,rankNum)
+    def requestingGhostIfAny(self) -> List:
+        self.counterpartRank = int(rng.integers(0,rankNum))
         if not self.haveGhost[self.counterpartRank]:
             self.haveGhost[self.counterpartRank] = True
             return [self.counterpartRank, ((self.uid[0], self.TYPE, rank), rank)]

@@ -175,7 +175,6 @@ class Model:
         str_countB="S"+str(countB)
         
         print(self.mToBcast, flush = True)
-        self.mToBcast = [0, [2, ((0, 0, 0), 0)], [2, ((1, 0, 0), 0)], [1, ((2, 0, 0), 0)]]
     
         self.mToBcast=json.dumps(self.mToBcast)
         self.mToBcast=np.array(self.mToBcast, dtype=str_countB) 
