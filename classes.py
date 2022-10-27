@@ -5,6 +5,7 @@ from typing import Tuple
 from memAlloc import *
 from MPIandContext import *
 
+
 class WinnerLoser(core.Agent):
 
     TYPE = 0
@@ -16,8 +17,17 @@ class WinnerLoser(core.Agent):
         self.counterpartRank = -1
         self.counterpartLocalId = -1
         
-    def chooseCounterpart(self):
-        pass
+        self.haveGhost = [False] * rankNum
+        self.haveGhost[rank] = True
+        
+    def requestingGhostIfAny(self) -> Tuple:
+        self.counterpartRank = rng.integers(0,rankNum)
+        if not self.haveGhost[self.counterpartRank]:
+            self.haveGhost[self.counterpartRank] = True
+            return [self.counterpartRank, ((self.uid[0], self.TYPE, rank), rank)]
+        
+        
+        
         
     def lookForMinWallet(self,agSet):
 

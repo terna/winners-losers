@@ -10,6 +10,13 @@ import numpy as np
 from classes import *
 from memAlloc import *
 
+def countDigits(n):
+    count = 0
+    while(n>0):
+        count+=1
+        n=n//10
+    return count
+
 
 class Model:
     """
@@ -31,6 +38,7 @@ class Model:
         
         #print(5, "rank", self.rank, "rank number", self.rankNum)
         
+        self.mToBcast = []
         
         # create the context to hold the agents and manage cross process
         # synchronization
@@ -72,7 +80,7 @@ class Model:
                 is of a type that has a non null tp_call (c struct) member which 
                 indicates callability otherwise (such as in functions, methods etc.)
         """
-        self.runner.schedule_repeating_event(0, 1, self.lookAtWalletsAndGive)
+        self.runner.schedule_repeating_event(0, 1, self.agentsChoosingCounterpart)
         self.runner.schedule_repeating_event(0.3, 1, self.sync)
         
         """
@@ -89,19 +97,6 @@ class Model:
 
         
         # create agents
-        
-        # https://repast.github.io/repast4py.site/apidoc/source/repast4py.random.html
-        """
-        Random numbers for repast4py. When this module is imported, 
-        repast4py.random.default_rng is created using the current epoch time as 
-        the random seed, and repast4py.random.seed is set to that value. 
-        
-        repast4py.random.init(rng_seed=None)
-        Initializes the default random number generator using the specified seed.
-        """
-        repast4py.random.init(rng_seed=params['myRandom.seed'][rank])
-        rng = repast4py.random.default_rng 
-        
         # winnerLoser agents
         
         for i in range(params['WinnerLoser.count'] // rankNum): 
@@ -112,9 +107,9 @@ class Model:
             aWinnerLoser = WinnerLoser(i,rank,aWallet)
             context.add(aWinnerLoser)
             
-            
+
         
-    def lookAtWalletsAndGive(self):        
+    def agentsChoosingCounterpart(self):        
         
         """
         agents(agent_type=None, count=None, shuffle=False)
@@ -137,49 +132,61 @@ class Model:
         pt addendum: it is a generator, not a list
         """
 
-        tick = self.runner.schedule.tick        
+        tick = self.runner.schedule.tick       
+        """
         print("tick",tick,"rank",rank,"clock",T(),\
                             "\nwallets",list(aWinnerLoser.myWallet\
                             for aWinnerLoser in context.agents(agent_type=0)),\
                             flush=True)
-                
+        """
+        
+        del self.mToBcast 
+        self.mToBcast = [rank] 
+        
         for aWinnerLoser in context.agents(agent_type=0):
-            aWinnerLoser.lookForMinWallet(context.agents(agent_type=0))
-            
-            aWinnerLoser.give(context.agents(agent_type=0))
-            
-            
+            aRequest = aWinnerLoser.requestingGhostIfAny()
+            if aRequest != None: self.mToBcast.append(aRequest)
+    
+        print(self.mToBcast, flush = True)
+        self.requestGhosts()
+           
+        
     def requestGhosts(self): 
         tick = self.runner.schedule.tick
         
         print("@@@@@@@@ tick",tick,"rank", rank)
-        
+        """
         #building the data matrix to be broadcasted
         if rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
-            mToBcast=[0,[0,((0,0,1),1)]]
+            self.mToBcast=[0,[0,((0,0,1),1)]]
             for k in range(2,rankNum):
-                mToBcast.append([k])
+                self.mToBcast.append([k])
     
 
         if rank!=0:        # example [1|2,[0],[1],[2]] with rankNum -> 3
-            mToBcast=[rank]
+            self.mToBcast=[rank]
             for k in range(rankNum):
-                mToBcast.append([k])
-
-    
-        countB=45+(rankNum-1)*5
+                self.mToBcast.append([k])
+        """
+       
+        
+        n=params['WinnerLoser.count'] // rankNum
+        countB = 10+n*(22+countDigits(n))
         str_countB="S"+str(countB)
+        
+        print(self.mToBcast, flush = True)
+        self.mToBcast = [0,[0,((0,0,1), 1)]]
     
-        mToBcast=json.dumps(mToBcast)
-        mToBcast=np.array(mToBcast, dtype=str_countB) #'S80')
-        mToBcast=mToBcast.tobytes()    
+        self.mToBcast=json.dumps(self.mToBcast)
+        self.mToBcast=np.array(self.mToBcast, dtype=str_countB) 
+        self.mToBcast=self.mToBcast.tobytes()    
         
         data=[""]*rankNum
         for k in range(rankNum):
             if rank == k:
-                data[k] = mToBcast
+                data[k] =self.mToBcast
             else:
-                data[k] = bytearray(countB) #80)
+                data[k] = bytearray(countB) 
         for k in range(rankNum):
             comm.Bcast(data[k], root=k)
 
@@ -231,10 +238,7 @@ class Model:
         print("***tick",tick,"rank", rank, "agent_cache", agent_cache, flush=True)
         print("***tick",tick,"rank", rank, "ghostsToRequest", ghostsToRequest, flush=True)
         
-        print("tick",tick,"rank", rank, "the ghost exixts?",\
-              "ghost agent = ",context.ghost_agent((0,0,1)),\
-              "actual agent = ",context.agent((0,0,1)),\
-             "count agents",len(list(context.agents())), flush=True)
+
         
     def sync(self):
         """
