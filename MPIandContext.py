@@ -23,17 +23,35 @@ Creates an argparse parser with two arguments:
 parser = parameters.create_args_parser()
 
 args = parser.parse_args()
-#print(1,args,flush=True)
+
 
 """
 init_params(parameters_file, parameters)
 Initializes the repast4py.parameters.params dictionary with the model input parameters.
 """
 params = parameters.init_params(args.parameters_file, args.parameters)
-#print(2,params,flush=True)
+
+"""
+repast4py.random.default_rng: numpy.random._generator.Generator = Generator(PCG64) 
+at 0x7F6812E0CD60 repast4py’s default random generator created using init. 
+See the Generator API documentation for more information on the available distributions 
+and sampling functions.
+
+Type
+numpy.random.Generator
+
+repast4py.random.init(rng_seed=None)
+Initializes the default random number generator using the specified seed.
+
+Parameters
+rng_seed (int) – the random number seed. Defaults to None in which case, the current 
+time as returned by time.time() is used as the seed.
+"""
 
 repast4py.random.init(rng_seed=params['myRandom.seed'][rank])
 rng = repast4py.random.default_rng 
+
+
 
 #timer T()
 startTime=-1
