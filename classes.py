@@ -1,8 +1,7 @@
 
 from repast4py import core
 from typing import Tuple, List
-import json
-#from repast4py import context as ctx
+
 from memAlloc import *
 from MPIandContext import *
 
@@ -15,31 +14,19 @@ class WinnerLoser(core.Agent):
         super().__init__(id=local_id, type=WinnerLoser.TYPE, rank=rank)
 
         self.myWallet = wallet
+
         self.counterpartRank = -1
         self.counterpartLocalId = -1
         
-        self.haveGhost = [False] * rankNum
-        self.haveGhost[rank] = True
+        self.havePresenceAsSelfOrGhost = [False] * rankNum
+        self.havePresenceAsSelfOrGhost[rank] = True
         
     def requestingGhostIfAny(self) -> List:
         self.counterpartRank = int(rng.integers(0,rankNum))
-        if not self.haveGhost[self.counterpartRank]:
-            self.haveGhost[self.counterpartRank] = True
+        if not self.havePresenceAsSelfOrGhost[self.counterpartRank]:
+            self.havePresenceAsSelfOrGhost[self.counterpartRank] = True
             return [self.counterpartRank, ((self.uid[0], self.TYPE, rank), rank)]
-        
-        
-        
-        
-    def lookForMinWallet(self,agSet):
 
-        agWalletSet=list(aWinnerLoser.myWallet for aWinnerLoser in agSet)
-        self.minWalletPosition=agWalletSet.index(min(agWalletSet))
-        
-    def give(self,agSet):
-        
-        list(agSet)[self.minWalletPosition].myWallet+=1
-        self.myWallet-=1
-        
     def save(self) -> Tuple: # mandatory
         """
         Saves the state of the WinnerLoser as a Tuple.
@@ -47,7 +34,6 @@ class WinnerLoser(core.Agent):
         Returns:
             The saved state of this WinnerLoser.
         """
-        print("quiiiiiiiiiiiiiiiiiiiiiiii myWallet", self.myWallet, flush=True)
         return (self.uid, self.myWallet)
 
     def update(self, wallet: float): # mandatory
@@ -56,9 +42,7 @@ class WinnerLoser(core.Agent):
         agent on some rank other than its local one.
         """
         self.myWallet=wallet
-        print("quaaaaaaaaaaaaaaaaaaaaaaaa", flush=True)
 
-        
       
             
 def restore_agent(agent_data: Tuple):
@@ -66,7 +50,6 @@ def restore_agent(agent_data: Tuple):
     uid=agent_data[0]
 
     if uid[1] == WinnerLoser.TYPE:
-        print("quoooooooooooooooooooooooooooo", flush=True)
     
         if uid in agent_cache:   # look for agent_cache in model.py
             tmp = agent_cache[uid] # found

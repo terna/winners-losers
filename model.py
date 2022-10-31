@@ -26,23 +26,16 @@ class Model:
     behavior of the model.
 
     Args:
-        comm: the mpi communicator over which the model is distributed.
         params: the simulation input parameters
     """
     def __init__(self, params: Dict):
 
-        #self.rank    = comm.Get_rank()
-        #self.rankNum = comm.Get_size() #pt
-        
-        #self.comm = comm
-        
-        #print(5, "rank", self.rank, "rank number", self.rankNum)
         
         self.mToBcast = []
         
-        # create the context to hold the agents and manage cross process
-        # synchronization
-        #self.context = ctx.SharedContext(comm)
+        # the context to hold the agents and manage cross process synchronization
+        # is created in step -2
+
         
         # create the schedule
         # https://repast.github.io/repast4py.site/apidoc/source/repast4py.schedule.html
@@ -131,14 +124,6 @@ class Model:
         iterable 
         pt addendum: it is a generator, not a list
         """
-
-        tick = self.runner.schedule.tick       
-        """
-        print("tick",tick,"rank",rank,"clock",T(),\
-                            "\nwallets",list(aWinnerLoser.myWallet\
-                            for aWinnerLoser in context.agents(agent_type=0)),\
-                            flush=True)
-        """
         
         del self.mToBcast 
         self.mToBcast = [rank] 
@@ -155,21 +140,7 @@ class Model:
         tick = self.runner.schedule.tick
         
         print("@@@@@@@@ tick",tick,"rank", rank)
-        """
-        #building the data matrix to be broadcasted
-        if rank==0:        # example [0,[0,((0,0,1),1)],[1,((0,1,0),0)],[2]] with rankNum => 3
-            self.mToBcast=[0,[0,((0,0,1),1)]]
-            for k in range(2,rankNum):
-                self.mToBcast.append([k])
-    
-
-        if rank!=0:        # example [1|2,[0],[1],[2]] with rankNum -> 3
-            self.mToBcast=[rank]
-            for k in range(rankNum):
-                self.mToBcast.append([k])
-        """
        
-        
         n=params['WinnerLoser.count'] // rankNum
         countB = 10+n*(22+countDigits(n))
         str_countB="S"+str(countB)
@@ -260,7 +231,7 @@ class Model:
                         
     def finish(self):
         tick = self.runner.schedule.tick
-        print("ciao by rank",rank,"at tick",tick,"clock",T(),flush=True)
+        print("Bye bye by rank",rank,"at tick",tick,"clock",T(),flush=True)
         
     def start(self):
         self.runner.execute()
