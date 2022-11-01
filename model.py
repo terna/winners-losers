@@ -132,21 +132,18 @@ class Model:
             aRequest = aWinnerLoser.requestingGhostIfAny()
             if aRequest != None: self.mToBcast.append(aRequest)
     
-        print(self.mToBcast, flush = True)
+        #print(self.mToBcast, flush = True)
+        tick = self.runner.schedule.tick
+        ic(tick,self.mToBcast);
         self.requestGhosts()
            
         
     def requestGhosts(self): 
-        tick = self.runner.schedule.tick
-        
-        print("@@@@@@@@ tick",tick,"rank", rank)
        
         n=params['WinnerLoser.count'] // rankNum
         countB = 10+n*(22+countDigits(n))
         str_countB="S"+str(countB)
-        
-        print(self.mToBcast, flush = True)
-    
+            
         self.mToBcast=json.dumps(self.mToBcast)
         self.mToBcast=np.array(self.mToBcast, dtype=str_countB) 
         self.mToBcast=self.mToBcast.tobytes()    
@@ -177,8 +174,6 @@ class Model:
                     
                     if not tuple(aSubitem[1]) in ghostsToRequest:
                         ghostsToRequest.append(tuple(aSubitem[1]))
-        print(rank, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", ghostsToRequest,\
-             flush=True)
         
         
         """
@@ -205,8 +200,10 @@ class Model:
         List[_core.Agent]
         """
         context.request_agents(ghostsToRequest,restore_agent)
-        print("***tick",tick,"rank", rank, "agent_cache", agent_cache, flush=True)
-        print("***tick",tick,"rank", rank, "ghostsToRequest", ghostsToRequest, flush=True)
+        tick = self.runner.schedule.tick
+        ic(tick,rank,agent_cache,ghostsToRequest);
+        #print("***tick",tick,"rank", rank, "agent_cache", agent_cache, flush=True)
+        #print("***tick",tick,"rank", rank, "ghostsToRequest", ghostsToRequest, flush=True)
         
 
         
@@ -227,11 +224,13 @@ class Model:
         Defaults to True.
         """
         context.synchronize(restore_agent)
+        tick = self.runner.schedule.tick
+        ic(tick,rank,"synconisation made");
     
                         
     def finish(self):
         tick = self.runner.schedule.tick
-        print("Bye bye by rank",rank,"at tick",tick,"clock",T(),flush=True)
+        print("\n\nBye bye by rank",rank,"at tick",tick,"clock",T(),flush=True)
         
     def start(self):
         self.runner.execute()

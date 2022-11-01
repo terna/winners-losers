@@ -5,6 +5,9 @@ from repast4py import context as ctx
 import repast4py 
 from repast4py import parameters
 
+# simple debug
+from icecream import ic
+
 comm = MPI.COMM_WORLD
 rank    = comm.Get_rank()
 rankNum = comm.Get_size() #pt
