@@ -58,6 +58,7 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         runner.schedule_repeating_event(0, 1, self.agentsChoosingCounterpart)
+        runner.schedule_repeating_event(0.1,1,self.activateGhosts)
         runner.schedule_repeating_event(0.3, 1, self.sync)
         
         """
@@ -87,6 +88,9 @@ class Model:
         
     def agentsChoosingCounterpart(self):        
         
+        del self.mToBcast 
+        self.mToBcast = [rank] 
+        
         """
         agents(agent_type=None, count=None, shuffle=False)
         Gets the agents in this SharedContext, optionally of the specified type, count 
@@ -107,9 +111,6 @@ class Model:
         iterable 
         pt addendum: it is a generator, not a list
         """
-        
-        del self.mToBcast 
-        self.mToBcast = [rank] 
         
         for aWinnerLoser in context.agents(agent_type=0):
             aRequest = aWinnerLoser.requestingGhostIfAny()
@@ -183,7 +184,14 @@ class Model:
         context.request_agents(ghostsToRequest,restore_agent)
         ic(t(),rank,ghostsToRequest,agent_cache);
         
-
+    
+    #TMP
+    def activateGhosts(self):
+        if len(agent_cache)>0:
+            currentGhostList=list(agent_cache.keys())
+            for i in range(len(agent_cache)):
+                agent_cache[currentGhostList[i]].reactingAsGhost()
+        
         
     def sync(self):
         """
@@ -202,7 +210,7 @@ class Model:
         Defaults to True.
         """
         context.synchronize(restore_agent)
-        ic(t(),rank,"synconisation made");
+        ic(t(),rank,"synchronisation made");
     
                         
     def finish(self):

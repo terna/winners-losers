@@ -29,7 +29,8 @@ class WinnerLoser(core.Agent):
     
     # TMP
     def reactingAsGhost(self):
-        print(self.uid[0],self.uid[1],self.uid[2])
+        print("*** in rank",rank,"tick",t(),"ghost",self.uid[0],self.uid[1],self.uid[2],flush=True)
+
 
     def save(self) -> Tuple: # mandatory
         """
