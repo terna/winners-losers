@@ -26,6 +26,10 @@ class WinnerLoser(core.Agent):
         if not self.havePresenceAsSelfOrGhost[self.counterpartRank]:
             self.havePresenceAsSelfOrGhost[self.counterpartRank] = True
             return [self.counterpartRank, ((self.uid[0], self.TYPE, rank), rank)]
+    
+    # TMP
+    def reactingAsGhost(self):
+        print(self.uid[0],self.uid[1],self.uid[2])
 
     def save(self) -> Tuple: # mandatory
         """

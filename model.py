@@ -2,7 +2,7 @@
 #from mpi4py import MPI
 from MPIandContext import *
 from typing import Dict
-from repast4py import schedule
+#from repast4py import schedule
 #from repast4py import context as ctx
 import repast4py
 import json
@@ -37,24 +37,8 @@ class Model:
         # is created in step -2
 
         
-        # create the schedule
+        # the runner, implementing the schedule, is created in step -2
         # https://repast.github.io/repast4py.site/apidoc/source/repast4py.schedule.html
-                
-        """
-        init_schedule_runner(comm)
-        Initializes the default schedule runner, a dynamic schedule of executable 
-        events shared and synchronized across processes.
-        Events are added to the scheduled for execution at a particular tick. 
-        The first valid tick is 0. Events will be executed in tick order, earliest 
-        before latest. Events scheduled for the same tick will be executed in the 
-        order in which they were added. If during the execution of a tick, 
-        an event is scheduled before the executing tick (i.e., scheduled to occur in 
-        the past) then that event is ignored. The scheduled is synchronized across 
-        process ranks by determining the global cross-process minimum next scheduled 
-        event time, and executing only the events schedule for that time. In this way, 
-        no schedule runs ahead of any other.
-        """
-        self.runner = schedule.init_schedule_runner(comm)
         
         """
         schedule_repeating_event(at, interval, evt)
@@ -73,8 +57,8 @@ class Model:
                 is of a type that has a non null tp_call (c struct) member which 
                 indicates callability otherwise (such as in functions, methods etc.)
         """
-        self.runner.schedule_repeating_event(0, 1, self.agentsChoosingCounterpart)
-        self.runner.schedule_repeating_event(0.3, 1, self.sync)
+        runner.schedule_repeating_event(0, 1, self.agentsChoosingCounterpart)
+        runner.schedule_repeating_event(0.3, 1, self.sync)
         
         """
         schedule_stop(at)
@@ -83,9 +67,9 @@ class Model:
         Parameters
         at (float) – the tick at which the schedule will stop.
         """
-        self.runner.schedule_stop(params['stop.at'])
+        runner.schedule_stop(params['stop.at'])
         
-        self.runner.schedule_end_event(self.finish)
+        runner.schedule_end_event(self.finish)
         
 
         
@@ -96,7 +80,6 @@ class Model:
                                                 #to subdivide the total #pt
             # create and add the agent to the context
             aWallet=10 * rng.random()
-            #print(aWallet,flush=True)
             aWinnerLoser = WinnerLoser(i,rank,aWallet)
             context.add(aWinnerLoser)
             
@@ -132,9 +115,7 @@ class Model:
             aRequest = aWinnerLoser.requestingGhostIfAny()
             if aRequest != None: self.mToBcast.append(aRequest)
     
-        #print(self.mToBcast, flush = True)
-        tick = self.runner.schedule.tick
-        ic(tick,self.mToBcast);
+        ic(t(),self.mToBcast);
         self.requestGhosts()
            
         
@@ -200,10 +181,7 @@ class Model:
         List[_core.Agent]
         """
         context.request_agents(ghostsToRequest,restore_agent)
-        tick = self.runner.schedule.tick
-        ic(tick,rank,agent_cache,ghostsToRequest);
-        #print("***tick",tick,"rank", rank, "agent_cache", agent_cache, flush=True)
-        #print("***tick",tick,"rank", rank, "ghostsToRequest", ghostsToRequest, flush=True)
+        ic(t(),rank,ghostsToRequest,agent_cache);
         
 
         
@@ -224,14 +202,12 @@ class Model:
         Defaults to True.
         """
         context.synchronize(restore_agent)
-        tick = self.runner.schedule.tick
-        ic(tick,rank,"synconisation made");
+        ic(t(),rank,"synconisation made");
     
                         
     def finish(self):
-        tick = self.runner.schedule.tick
-        print("\n\nBye bye by rank",rank,"at tick",tick,"clock",T(),flush=True)
+        print("\n\nBye bye by rank",rank,"at tick",t(),"clock",T(),flush=True)
         
     def start(self):
-        self.runner.execute()
+        runner.execute()
         
