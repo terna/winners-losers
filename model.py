@@ -80,7 +80,7 @@ class Model:
         for i in range(params['WinnerLoser.count'] // rankNum): 
                                                 #to subdivide the total #pt
             # create and add the agent to the context
-            aWallet=10 * rng.random()
+            aWallet=1 #10 * rng.random()
             aWinnerLoser = WinnerLoser(i,rank,aWallet)
             context.add(aWinnerLoser)
             
@@ -113,7 +113,7 @@ class Model:
         """
         
         for aWinnerLoser in context.agents(agent_type=0):
-            aRequest = aWinnerLoser.requestingGhostIfAny()
+            aRequest = aWinnerLoser.creatingItsGhostIfAny()
             if aRequest != None: self.mToBcast.append(aRequest)
     
         ic(t(),self.mToBcast);

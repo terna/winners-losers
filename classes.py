@@ -21,7 +21,7 @@ class WinnerLoser(core.Agent):
         self.havePresenceAsSelfOrGhost = [False] * rankNum
         self.havePresenceAsSelfOrGhost[rank] = True
         
-    def requestingGhostIfAny(self) -> List:
+    def creatingItsGhostIfAny(self) -> List:
         self.counterpartRank = int(rng.integers(0,rankNum))
         if not self.havePresenceAsSelfOrGhost[self.counterpartRank]:
             self.havePresenceAsSelfOrGhost[self.counterpartRank] = True
