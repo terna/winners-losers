@@ -58,7 +58,7 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         runner.schedule_repeating_event(0, 1, self.agentsChoosingCounterpart)
-        runner.schedule_repeating_event(0.1,1,self.activateGhosts)
+        #runner.schedule_repeating_event(0.1,1, self.activateGhosts)
         runner.schedule_repeating_event(0.3, 1, self.sync)
         
         """
@@ -113,11 +113,14 @@ class Model:
         """
         
         for aWinnerLoser in context.agents(agent_type=0):
-            aRequest = aWinnerLoser.creatingItsGhostIfAny()
+            aRequest = aWinnerLoser.choosingRankAndCreatingItsGhostIfAny()
             if aRequest != None: self.mToBcast.append(aRequest)
     
-        ic(t(),self.mToBcast);
+        #ic(t(),self.mToBcast);
         self.requestGhosts()
+        
+        for aWinnerLoser in context.agents(agent_type=0):
+            aWinnerLoser.operatingInItsRank()
            
         
     def requestGhosts(self): 
@@ -182,7 +185,7 @@ class Model:
         List[_core.Agent]
         """
         context.request_agents(ghostsToRequest,restore_agent)
-        ic(t(),rank,ghostsToRequest,agent_cache);
+        #ic(t(),rank,ghostsToRequest,agent_cache);
         
     
     #TMP
@@ -210,7 +213,7 @@ class Model:
         Defaults to True.
         """
         context.synchronize(restore_agent)
-        ic(t(),rank,"synchronisation made");
+        #ic(t(),rank,"synchronisation made");
     
                         
     def finish(self):

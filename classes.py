@@ -21,12 +21,30 @@ class WinnerLoser(core.Agent):
         self.havePresenceAsSelfOrGhost = [False] * rankNum
         self.havePresenceAsSelfOrGhost[rank] = True
         
-    def creatingItsGhostIfAny(self) -> List:
+    def choosingRankAndCreatingItsGhostIfAny(self) -> List:
         self.counterpartRank = int(rng.integers(0,rankNum))
         if not self.havePresenceAsSelfOrGhost[self.counterpartRank]:
             self.havePresenceAsSelfOrGhost[self.counterpartRank] = True
             return [self.counterpartRank, ((self.uid[0], self.TYPE, rank), rank)]
-    
+        
+    def operatingInItsRank(self):
+        if self.counterpartRank == rank:
+            tmpListOfAgentsInTheSameRank = list(context.agents(agent_type=0))
+            ii=0
+            for i in range(len(tmpListOfAgentsInTheSameRank)):
+                if self.uid == tmpListOfAgentsInTheSameRank[i].uid: ii=i
+            tmpListOfAgentsInTheSameRank.pop(ii)
+            counterpart=tmpListOfAgentsInTheSameRank[int(rng.integers(0,len(tmpListOfAgentsInTheSameRank)))]
+            commonWallet = self.myWallet + counterpart.myWallet
+            share=float(rng.random())
+            self.myWallet = commonWallet*share
+            counterpart.myWallet = commonWallet*(1-share)
+            ic (self.uid, self.myWallet, counterpart.uid, counterpart.myWallet)
+            
+        
+                              
+
+                    
     # TMP
     def reactingAsGhost(self):
         print("*** in rank",rank,"tick",t(),"ghost",self.uid[0],self.uid[1],self.uid[2],flush=True)
