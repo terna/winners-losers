@@ -39,7 +39,8 @@ class WinnerLoser(core.Agent):
             share=float(rng.random())
             self.myWallet = commonWallet*share
             counterpart.myWallet = commonWallet*(1-share)
-            ic (self.uid, self.myWallet, counterpart.uid, counterpart.myWallet)
+            print("rank", rank, "tick", t(), "uid", self.uid,"myWallet",\
+                   self.myWallet, "counterpart", counterpart.uid, "counterpart wallet", counterpart.myWallet, flush = True)
             
         
                               
@@ -47,7 +48,7 @@ class WinnerLoser(core.Agent):
                     
     # TMP
     def reactingAsGhost(self):
-        print("*** in rank",rank,"tick",t(),"ghost",self.uid[0],self.uid[1],self.uid[2],flush=True)
+        print("*** in rank",rank,"tick",t(),"ghost",self.uid, self.myWallet, flush=True)
 
 
     def save(self) -> Tuple: # mandatory

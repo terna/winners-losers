@@ -9,13 +9,8 @@ import json
 import numpy as np
 from classes import *
 from memAlloc import *
+from broadcastF import *
 
-def countDigits(n):
-    count = 0
-    while(n>0):
-        count+=1
-        n=n//10
-    return count
 
 
 class Model:
@@ -28,8 +23,11 @@ class Model:
     Args:
         params: the simulation input parameters
     """
+    
+    global params
+    PARAMS = params
+    
     def __init__(self, params: Dict):
-
         
         self.mToBcast = []
         
@@ -58,9 +56,10 @@ class Model:
                 indicates callability otherwise (such as in functions, methods etc.)
         """
         runner.schedule_repeating_event(0, 1, self.agentsChoosingCounterpart)
-        #runner.schedule_repeating_event(0.1,1, self.activateGhosts)
+        runner.schedule_repeating_event(0.1, 1, self.agentsSendingTheirGhosts)      
+        runner.schedule_repeating_event(0.2, 1, self.agentsExchangingInTheirRanks)
         runner.schedule_repeating_event(0.3, 1, self.sync)
-        
+        runner.schedule_repeating_event(0.4, 1, self.checkingGhostsWallets)
         """
         schedule_stop(at)
         Schedules the execution of this schedule to stop at the specified tick.
@@ -117,49 +116,11 @@ class Model:
             if aRequest != None: self.mToBcast.append(aRequest)
     
         #ic(t(),self.mToBcast);
-        self.requestGhosts()
         
-        for aWinnerLoser in context.agents(agent_type=0):
-            aWinnerLoser.operatingInItsRank()
-           
         
-    def requestGhosts(self): 
-       
-        n=params['WinnerLoser.count'] // rankNum
-        countB = 10+n*(22+countDigits(n))
-        str_countB="S"+str(countB)
-            
-        self.mToBcast=json.dumps(self.mToBcast)
-        self.mToBcast=np.array(self.mToBcast, dtype=str_countB) 
-        self.mToBcast=self.mToBcast.tobytes()    
         
-        data=[""]*rankNum
-        for k in range(rankNum):
-            if rank == k:
-                data[k] =self.mToBcast
-            else:
-                data[k] = bytearray(countB) 
-        for k in range(rankNum):
-            comm.Bcast(data[k], root=k)
-
-        for k in range(rankNum):
-            data[k]=data[k].decode().rstrip('\x00')
-
-        for k in range(rankNum):
-            data[k]=json.loads(data[k])
-            
-
-        for anItem in data:
-            anItem.pop(0)
-            for aSubitem in anItem: 
-                if len(aSubitem)>1 and aSubitem[0]==rank: 
-                    aaSubitem = aSubitem[1][0]
-                    aaSubitem = tuple(aaSubitem)
-                    aSubitem=(aSubitem[0], (aaSubitem, aSubitem[1][1]))
-                    
-                    if not tuple(aSubitem[1]) in ghostsToRequest:
-                        ghostsToRequest.append(tuple(aSubitem[1]))
-        
+    def agentsSendingTheirGhosts(self):
+        broadcastGhostRequests(self.mToBcast, Model.PARAMS, rankNum, rank, comm, ghostsToRequest)  #broadcasting
         
         """
         https://repast.github.io/repast4py.site/apidoc/source/repast4py.context.html
@@ -186,10 +147,15 @@ class Model:
         """
         context.request_agents(ghostsToRequest,restore_agent)
         #ic(t(),rank,ghostsToRequest,agent_cache);
+
         
-    
+    def agentsExchangingInTheirRanks(self):
+        for aWinnerLoser in context.agents(agent_type=0):
+            aWinnerLoser.operatingInItsRank()
+  
+           
     #TMP
-    def activateGhosts(self):
+    def checkingGhostsWallets(self):
         if len(agent_cache)>0:
             currentGhostList=list(agent_cache.keys())
             for i in range(len(agent_cache)):
