@@ -6,10 +6,12 @@ from typing import Dict
 #from repast4py import context as ctx
 import repast4py
 import json
+import csv
 import numpy as np
 from classes import *
 from memAlloc import *
 from broadcastF import *
+
 
 
 
@@ -183,7 +185,17 @@ class Model:
     
                         
     def finish(self):
+        allTheWallets = []
+        for aWinnerLoser in context.agents(agent_type=0):
+            allTheWallets.append(aWinnerLoser.myWallet)
+        
         print("\n\nBye bye by rank",rank,"at tick",t(),"clock",T(),flush=True)
+        #print(allTheWallets, flush = True)
+        
+        with open('wallets'+str(rank)+'.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(allTheWallets)
+                
         
     def start(self):
         runner.execute()
