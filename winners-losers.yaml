@@ -1,6 +1,5 @@
 myRandom.seed: [4301,4312,4423,4534,4645]
-stop.at: 10
-WinnerLoser.count: 12
-Ghostbuster.count: 1
+stop.at: 50
+WinnerLoser.count: 3000
 meet_log_file: 'output/meet_log.csv'
 agent_log_file: 'output/agent_log.csv'
