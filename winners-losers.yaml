@@ -1,5 +1,4 @@
 myRandom.seed: [4301,4312,4423,4534,4645]
-stop.at: 50
+stop.at: 500
 WinnerLoser.count: 3000
-meet_log_file: 'output/meet_log.csv'
-agent_log_file: 'output/agent_log.csv'
+log_file_root: 'wallets'

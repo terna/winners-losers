@@ -57,11 +57,12 @@ class Model:
                 is of a type that has a non null tp_call (c struct) member which 
                 indicates callability otherwise (such as in functions, methods etc.)
         """
-        runner.schedule_repeating_event(0, 1, self.agentsChoosingCounterpart)
-        runner.schedule_repeating_event(0.1, 1, self.agentsSendingTheirGhosts)      
-        runner.schedule_repeating_event(0.2, 1, self.agentsExchangingInTheirRanks)
-        runner.schedule_repeating_event(0.3, 1, self.sync)
-        runner.schedule_repeating_event(0.4, 1, self.checkingGhostsWallets)
+        runner.schedule_repeating_event(0  , 1, self.counter)
+        runner.schedule_repeating_event(0.1, 1, self.agentsChoosingCounterpart)
+        runner.schedule_repeating_event(0.2, 1, self.agentsSendingTheirGhosts)      
+        runner.schedule_repeating_event(0.3, 1, self.agentsExchangingInTheirRanks)
+        runner.schedule_repeating_event(0.4, 1, self.sync)
+        runner.schedule_repeating_event(0.5, 1, self.checkingGhostsWallets)
         """
         schedule_stop(at)
         Schedules the execution of this schedule to stop at the specified tick.
@@ -87,6 +88,9 @@ class Model:
             
 
         
+    def counter(self):
+        if int(t()) % 100 == 0: print("rank", rank, "tick", t(), flush=True)
+    
     def agentsChoosingCounterpart(self):        
         
         del self.mToBcast 
@@ -192,7 +196,7 @@ class Model:
         print("\n\nBye bye by rank",rank,"at tick",t(),"clock",T(),flush=True)
         #print(allTheWallets, flush = True)
         
-        with open('wallets'+str(rank)+'.csv', 'w', newline='') as file:
+        with open(params["log_file_root"]+str(rank)+'.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(allTheWallets)
                 

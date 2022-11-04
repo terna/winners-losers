@@ -87,6 +87,6 @@ def T():
         startTime=time.time()
     return time.time() - startTime
 
-
+T()
 
     
