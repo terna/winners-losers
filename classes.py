@@ -10,16 +10,18 @@ class WinnerLoser(core.Agent):
 
     TYPE = 0
     
-    def __init__(self, local_id: int, rank: int, wallet: float):
+    def __init__(self, local_id: int, rank: int, wallet: float, counterpartRank: int, madeAnExchangeWithGhost: bool):
         super().__init__(id=local_id, type=WinnerLoser.TYPE, rank=rank)
 
         self.myWallet = wallet
 
-        self.counterpartRank = -1
+        self.counterpartRank = counterpartRank
         self.counterpartLocalId = -1
+        self.madeAnExchangeWithGhost= madeAnExchangeWithGhost
         
         self.havePresenceAsSelfOrGhost = [False] * rankNum
         self.havePresenceAsSelfOrGhost[rank] = True
+        
         
     def choosingRankAndCreatingItsGhostIfAny(self) -> List:
         self.counterpartRank = int(rng.integers(0,rankNum))
@@ -48,8 +50,8 @@ class WinnerLoser(core.Agent):
                     
     # TMP
     def reactingAsGhost(self):
-        #print("*** in rank",rank,"tick",t(),"ghost",self.uid, self.myWallet, flush=True)
-        pass
+        print("*** in rank",rank,"tick",t(),"ghost",self.uid, self.myWallet, flush=True)
+        #pass
 
 
     def save(self) -> Tuple: # mandatory
@@ -59,14 +61,16 @@ class WinnerLoser(core.Agent):
         Returns:
             The saved state of this WinnerLoser.
         """
-        return (self.uid, self.myWallet)
+        return (self.uid, (self.myWallet, self.counterpartRank, self.madeAnExchangeWithGhost))
 
-    def update(self, wallet: float): # mandatory
+    def update(self, dynState: Tuple): # mandatory
         """
         Updates the state of this agent when it is a ghost
         agent on some rank other than its local one.
         """
-        self.myWallet=wallet
+        self.myWallet=dynState[0]
+        self.counterpartRank = dynState[1]
+        self.madeAnExchangeWithGhost = dynState[2]
 
       
             
@@ -78,10 +82,12 @@ def restore_agent(agent_data: Tuple):
     
         if uid in agent_cache:   # look for agent_cache in model.py
             tmp = agent_cache[uid] # found
-            tmp.myWallet = agent_data[1] #restore data
+            tmp.myWallet = agent_data[1][0] #restore data
+            tmp.counterpartRank = agent_data[1][1]
+            tmp.madeAnExchangeWithGhost = agent_data[1][2]
 
         else: #creation of an instance of the class with its data
-            tmp = WinnerLoser(uid[0], uid[2],agent_data[1])                
+            tmp = WinnerLoser(uid[0], uid[2],agent_data[1][0], agent_data[1][1], agent_data[1][2])                
             agent_cache[uid] = tmp
 
         return tmp

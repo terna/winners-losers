@@ -62,7 +62,7 @@ class Model:
         runner.schedule_repeating_event(0.2, 1, self.agentsSendingTheirGhosts)      
         runner.schedule_repeating_event(0.3, 1, self.agentsExchangingInTheirRanks)
         runner.schedule_repeating_event(0.4, 1, self.sync)
-        runner.schedule_repeating_event(0.5, 1, self.checkingGhostsWallets)
+        runner.schedule_repeating_event(0.5, 1, self.meetingMaterialCounterpart)
         """
         schedule_stop(at)
         Schedules the execution of this schedule to stop at the specified tick.
@@ -83,8 +83,9 @@ class Model:
                                                 #to subdivide the total #pt
             # create and add the agent to the context
             aWallet=1 #10 * rng.random()
-            aWinnerLoser = WinnerLoser(i,rank,aWallet)
+            aWinnerLoser = WinnerLoser(i,rank,aWallet,-1,False)
             context.add(aWinnerLoser)
+        
             
 
         
@@ -159,13 +160,15 @@ class Model:
         for aWinnerLoser in context.agents(agent_type=0):
             aWinnerLoser.operatingInItsRank()
   
-           
-    #TMP
-    def checkingGhostsWallets(self):
-        if len(agent_cache)>0:
+   
+    
+    def meetingMaterialCounterpart(self):
+        if not agent_cache == {}:
             currentGhostList=list(agent_cache.keys())
-            for i in range(len(agent_cache)):
-                agent_cache[currentGhostList[i]].reactingAsGhost()
+            for i in range(len(agent_cache)):               
+                if agent_cache[currentGhostList[i]].counterpartRank==rank:
+                     print("!££££££££££", agent_cache[currentGhostList[i]].counterpartRank,\
+                      currentGhostList[i], rank, flush=True)
         
         
     def sync(self):
