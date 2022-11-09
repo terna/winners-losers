@@ -10,17 +10,18 @@ class WinnerLoser(core.Agent):
 
     TYPE = 0
     
-    def __init__(self, local_id: int, rank: int, wallet: float, counterpartRank: int, madeAnExchangeWithGhost: bool):
+    def __init__(self, local_id: int, rank: int, wallet: float, counterpartRank: int):
         super().__init__(id=local_id, type=WinnerLoser.TYPE, rank=rank)
 
         self.myWallet = wallet
 
         self.counterpartRank = counterpartRank
         self.counterpartLocalId = -1
-        self.madeAnExchangeWithGhost= madeAnExchangeWithGhost
         
         self.havePresenceAsSelfOrGhost = [False] * rankNum
         self.havePresenceAsSelfOrGhost[rank] = True
+        
+        self.myGhostCounterpartId = ()
         
         
     def choosingRankAndCreatingItsGhostIfAny(self) -> List:
@@ -41,18 +42,30 @@ class WinnerLoser(core.Agent):
             share=float(rng.random())
             self.myWallet = commonWallet*share
             counterpart.myWallet = commonWallet*(1-share)
-            #print("rank", rank, "tick", t(), "uid", self.uid,"myWallet",\
-            #      self.myWallet, "counterpart", counterpart.uid, "counterpart wallet", counterpart.myWallet, flush = True)
             
         
                               
-
-                    
-    # TMP
-    def reactingAsGhost(self):
-        print("*** in rank",rank,"tick",t(),"ghost",self.uid, self.myWallet, flush=True)
-        #pass
-
+    def actingAsGhost(self, materialsReadyToExchange):
+        if materialsReadyToExchange == []: return
+        print("MANNAGGIAZZAAAA")
+        if self.counterpartRank==rank: 
+            myMaterial = materialsReadyToExchange.pop(int(rng.integers(0,len(materialsReadyToExchange))))
+            commonWallet = self.myWallet + myMaterial.myWallet
+            share=float(rng.random())
+            self.myWallet = commonWallet*share
+            myMaterial.myWallet = commonWallet*(1-share)  
+            myMaterial.myGhostCounterpartId = self.uid
+            #print("@@@@@@@", myMaterial.myGhostCounterpartId, myMaterial)
+            print(self.myWallet, myMaterial.myWallet, "AAAAAAAAAAAAAAAAAAAAAAA")
+            
+    def sendingMyGhostToConcludeTheExchange(self) -> List:
+        print(self.myGhostCounterpartId, "!!!!!!!!!!!!", flush = True)
+        return [self.myGhostCounterpartId[2], (self.myGhostCounterpartId, self.myGhostCounterpartId[2])]
+        
+        
+           
+            
+        
 
     def save(self) -> Tuple: # mandatory
         """
@@ -61,7 +74,7 @@ class WinnerLoser(core.Agent):
         Returns:
             The saved state of this WinnerLoser.
         """
-        return (self.uid, (self.myWallet, self.counterpartRank, self.madeAnExchangeWithGhost))
+        return (self.uid, (self.myWallet, self.counterpartRank))
 
     def update(self, dynState: Tuple): # mandatory
         """
@@ -70,7 +83,6 @@ class WinnerLoser(core.Agent):
         """
         self.myWallet=dynState[0]
         self.counterpartRank = dynState[1]
-        self.madeAnExchangeWithGhost = dynState[2]
 
       
             
@@ -84,10 +96,10 @@ def restore_agent(agent_data: Tuple):
             tmp = agent_cache[uid] # found
             tmp.myWallet = agent_data[1][0] #restore data
             tmp.counterpartRank = agent_data[1][1]
-            tmp.madeAnExchangeWithGhost = agent_data[1][2]
+
 
         else: #creation of an instance of the class with its data
-            tmp = WinnerLoser(uid[0], uid[2],agent_data[1][0], agent_data[1][1], agent_data[1][2])                
+            tmp = WinnerLoser(uid[0], uid[2],agent_data[1][0], agent_data[1][1])                
             agent_cache[uid] = tmp
 
         return tmp

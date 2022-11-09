@@ -62,7 +62,8 @@ class Model:
         runner.schedule_repeating_event(0.2, 1, self.agentsSendingTheirGhosts)      
         runner.schedule_repeating_event(0.3, 1, self.agentsExchangingInTheirRanks)
         runner.schedule_repeating_event(0.4, 1, self.sync)
-        runner.schedule_repeating_event(0.5, 1, self.meetingMaterialCounterpart)
+        runner.schedule_repeating_event(0.5, 1, self.ghostsExchangingInDifferentRanks)
+        #runner.schedule_repeating_event(0.6, 1, self.agentsSendingTheirGhosts)
         """
         schedule_stop(at)
         Schedules the execution of this schedule to stop at the specified tick.
@@ -83,7 +84,7 @@ class Model:
                                                 #to subdivide the total #pt
             # create and add the agent to the context
             aWallet=1 #10 * rng.random()
-            aWinnerLoser = WinnerLoser(i,rank,aWallet,-1,False)
+            aWinnerLoser = WinnerLoser(i,rank,aWallet,-1)
             context.add(aWinnerLoser)
         
             
@@ -162,14 +163,34 @@ class Model:
   
    
     
-    def meetingMaterialCounterpart(self):
-        if not agent_cache == {}:
-            currentGhostList=list(agent_cache.keys())
-            for i in range(len(agent_cache)):               
-                if agent_cache[currentGhostList[i]].counterpartRank==rank:
-                     print("!££££££££££", agent_cache[currentGhostList[i]].counterpartRank,\
-                      currentGhostList[i], rank, flush=True)
+    def ghostsExchangingInDifferentRanks(self):          
+        if not params['rank_interaction']: return     
+        for aWinnerLoser in context.agents(agent_type=0):
+            aWinnerLoser.myGhostCounterpartId = ()
         
+        del self.mToBcast 
+        self.mToBcast = [rank] 
+        
+        materialsReadyToExchange = list(context.agents(agent_type=0)).copy()     
+        print("NON SO PIU CHE FARE", agent_cache)
+        if not agent_cache == {}:
+            print("ACCIDENTI")
+            currentGhostList=list(agent_cache.keys())
+            for i in range(len(agent_cache)):                
+                agent_cache[currentGhostList[i]].actingAsGhost(materialsReadyToExchange)
+       
+    
+    #preparing mToBcast
+    def agentsSendingTheirGhosts(self):
+        for aWinnerLoser in context.agents(agent_type=0):
+            if aWinnerLoser.myGhostCounterpartId != ():
+                aRequest = aWinnerLoser.sendingMyGhostToConcludeTheExchange()
+                if aRequest != None: self.mToBcast.append(aRequest)
+        print(self.mToBcast, "$$$$$$$$$$$$$$$$$", rank, t(), flush = True)
+                    
+                    
+
+                    
         
     def sync(self):
         """
