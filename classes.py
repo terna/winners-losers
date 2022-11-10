@@ -47,7 +47,6 @@ class WinnerLoser(core.Agent):
                               
     def actingAsGhost(self, materialsReadyToExchange):
         if materialsReadyToExchange == []: return
-        print("MANNAGGIAZZAAAA")
         if self.counterpartRank==rank: 
             myMaterial = materialsReadyToExchange.pop(int(rng.integers(0,len(materialsReadyToExchange))))
             commonWallet = self.myWallet + myMaterial.myWallet
@@ -56,10 +55,9 @@ class WinnerLoser(core.Agent):
             myMaterial.myWallet = commonWallet*(1-share)  
             myMaterial.myGhostCounterpartId = self.uid
             #print("@@@@@@@", myMaterial.myGhostCounterpartId, myMaterial)
-            print(self.myWallet, myMaterial.myWallet, "AAAAAAAAAAAAAAAAAAAAAAA")
             
     def sendingMyGhostToConcludeTheExchange(self) -> List:
-        print(self.myGhostCounterpartId, "!!!!!!!!!!!!", flush = True)
+
         return [self.myGhostCounterpartId[2], (self.myGhostCounterpartId, self.myGhostCounterpartId[2])]
         
         
@@ -87,7 +85,7 @@ class WinnerLoser(core.Agent):
       
             
 def restore_agent(agent_data: Tuple):
-
+    
     uid=agent_data[0]
 
     if uid[1] == WinnerLoser.TYPE:

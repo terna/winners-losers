@@ -63,7 +63,9 @@ class Model:
         runner.schedule_repeating_event(0.3, 1, self.agentsExchangingInTheirRanks)
         runner.schedule_repeating_event(0.4, 1, self.sync)
         runner.schedule_repeating_event(0.5, 1, self.ghostsExchangingInDifferentRanks)
-        #runner.schedule_repeating_event(0.6, 1, self.agentsSendingTheirGhosts)
+        runner.schedule_repeating_event(0.6, 1,\
+                                  self.agentsHavingExchancedWithGhostsPreparingTheirOwnGhosts)
+        #runner.schedule_repeating_event(0.7, 1, self.agentsSendingTheirGhosts)
         """
         schedule_stop(at)
         Schedules the execution of this schedule to stop at the specified tick.
@@ -128,6 +130,7 @@ class Model:
         
         
     def agentsSendingTheirGhosts(self):
+
         broadcastGhostRequests(self.mToBcast, Model.PARAMS, rankNum, rank, comm, ghostsToRequest)  #broadcasting
         
         """
@@ -153,6 +156,7 @@ class Model:
         Return type
         List[_core.Agent]
         """
+
         context.request_agents(ghostsToRequest,restore_agent)
         #ic(t(),rank,ghostsToRequest,agent_cache);
 
@@ -172,23 +176,20 @@ class Model:
         self.mToBcast = [rank] 
         
         materialsReadyToExchange = list(context.agents(agent_type=0)).copy()     
-        print("NON SO PIU CHE FARE", agent_cache)
         if not agent_cache == {}:
-            print("ACCIDENTI")
             currentGhostList=list(agent_cache.keys())
             for i in range(len(agent_cache)):                
                 agent_cache[currentGhostList[i]].actingAsGhost(materialsReadyToExchange)
        
     
     #preparing mToBcast
-    def agentsSendingTheirGhosts(self):
+    def agentsHavingExchancedWithGhostsPreparingTheirOwnGhosts(self):
+        if not params['rank_interaction']: return
         for aWinnerLoser in context.agents(agent_type=0):
             if aWinnerLoser.myGhostCounterpartId != ():
                 aRequest = aWinnerLoser.sendingMyGhostToConcludeTheExchange()
                 if aRequest != None: self.mToBcast.append(aRequest)
         print(self.mToBcast, "$$$$$$$$$$$$$$$$$", rank, t(), flush = True)
-                    
-                    
 
                     
         
