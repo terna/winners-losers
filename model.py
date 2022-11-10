@@ -14,7 +14,6 @@ from broadcastF import *
 
 
 
-
 class Model:
     """
     The Model class encapsulates the simulation, and is
@@ -86,7 +85,7 @@ class Model:
                                                 #to subdivide the total #pt
             # create and add the agent to the context
             aWallet=1 #10 * rng.random()
-            aWinnerLoser = WinnerLoser(i,rank,aWallet,-1)
+            aWinnerLoser = WinnerLoser(i,rank,aWallet,-1,())
             context.add(aWinnerLoser)
         
             
@@ -219,7 +218,8 @@ class Model:
         for aWinnerLoser in context.agents(agent_type=0):
             allTheWallets.append(aWinnerLoser.myWallet)
         
-        print("\n\nBye bye by rank",rank,"at tick",t(),"clock",T(),flush=True)
+        print("\n\nBye bye by rank",rank,"at tick",t(),"clock",T(),\
+              "transaction #", tr(True), flush=True)
         #print(allTheWallets, flush = True)
         
         with open(params["log_file_root"]+str(rank)+'.csv', 'w', newline='') as file:

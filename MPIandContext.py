@@ -89,4 +89,10 @@ def T():
 
 T()
 
+# count transactions
+transactions = 0
+def tr(total=False):
+    global transactions
+    if not total: transactions+=1
+    return transactions
     

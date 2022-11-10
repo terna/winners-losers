@@ -5,12 +5,12 @@ from typing import Tuple, List
 from memAlloc import *
 from MPIandContext import *
 
-
 class WinnerLoser(core.Agent):
 
     TYPE = 0
     
-    def __init__(self, local_id: int, rank: int, wallet: float, counterpartRank: int):
+    def __init__(self, local_id: int, rank: int, wallet: float, counterpartRank: int,\
+                myGhostCounterpartId: Tuple):
         super().__init__(id=local_id, type=WinnerLoser.TYPE, rank=rank)
 
         self.myWallet = wallet
@@ -21,7 +21,7 @@ class WinnerLoser(core.Agent):
         self.havePresenceAsSelfOrGhost = [False] * rankNum
         self.havePresenceAsSelfOrGhost[rank] = True
         
-        self.myGhostCounterpartId = ()
+        self.myGhostCounterpartId = myGhostCounterpartId
         
         
     def choosingRankAndCreatingItsGhostIfAny(self) -> List:
@@ -42,6 +42,7 @@ class WinnerLoser(core.Agent):
             share=float(rng.random())
             self.myWallet = commonWallet*share
             counterpart.myWallet = commonWallet*(1-share)
+            tr()
             
         
                               
@@ -53,17 +54,15 @@ class WinnerLoser(core.Agent):
             share=float(rng.random())
             self.myWallet = commonWallet*share
             myMaterial.myWallet = commonWallet*(1-share)  
+            tr()
             myMaterial.myGhostCounterpartId = self.uid
             #print("@@@@@@@", myMaterial.myGhostCounterpartId, myMaterial)
             
     def sendingMyGhostToConcludeTheExchange(self) -> List:
 
-        return [self.myGhostCounterpartId[2], (self.myGhostCounterpartId, self.myGhostCounterpartId[2])]
+        return [self.uid[2], (self.uid, self.uid[2])]
         
-        
-           
-            
-        
+     
 
     def save(self) -> Tuple: # mandatory
         """
@@ -72,7 +71,7 @@ class WinnerLoser(core.Agent):
         Returns:
             The saved state of this WinnerLoser.
         """
-        return (self.uid, (self.myWallet, self.counterpartRank))
+        return (self.uid, (self.myWallet, self.counterpartRank, self.myGhostCounterpartId))
 
     def update(self, dynState: Tuple): # mandatory
         """
@@ -81,6 +80,7 @@ class WinnerLoser(core.Agent):
         """
         self.myWallet=dynState[0]
         self.counterpartRank = dynState[1]
+        self.myGhostCounterpartId = dynState[2]
 
       
             
@@ -94,10 +94,12 @@ def restore_agent(agent_data: Tuple):
             tmp = agent_cache[uid] # found
             tmp.myWallet = agent_data[1][0] #restore data
             tmp.counterpartRank = agent_data[1][1]
+            tmp.myGhostCounterpartId = agent_data[1][2]
 
 
         else: #creation of an instance of the class with its data
-            tmp = WinnerLoser(uid[0], uid[2],agent_data[1][0], agent_data[1][1])                
+            tmp = WinnerLoser(uid[0], uid[2],agent_data[1][0], agent_data[1][1],\
+                             agent_data[1][2])                
             agent_cache[uid] = tmp
 
         return tmp
