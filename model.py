@@ -125,11 +125,12 @@ class Model:
             aRequest = aWinnerLoser.choosingRankAndCreatingItsGhostIfAny()
             if aRequest != None: self.mToBcast.append(aRequest)
     
-        #ic(t(),self.mToBcast);
+        print(self.mToBcast, "£££££££££££££££££", rank, t(), flush = True)
         
         
         
     def agentsSendingTheirGhosts(self):
+        if not (params['rank_interaction'] or rankNum==1): return     
 
         broadcastGhostRequests(self.mToBcast, Model.PARAMS, rankNum, rank, comm, ghostsToRequest)  #broadcasting
         
@@ -168,7 +169,7 @@ class Model:
    
     
     def ghostsExchangingInDifferentRanks(self):          
-        if not params['rank_interaction']: return     
+        if not (params['rank_interaction'] or rankNum==1): return     
         for aWinnerLoser in context.agents(agent_type=0):
             aWinnerLoser.myGhostCounterpartId = ()
         
@@ -184,7 +185,7 @@ class Model:
     
     #preparing mToBcast
     def agentsHavingExchancedWithGhostsPreparingTheirOwnGhosts(self):
-        if not params['rank_interaction']: return
+        if not (params['rank_interaction'] or rankNum==1): return
         for aWinnerLoser in context.agents(agent_type=0):
             if aWinnerLoser.myGhostCounterpartId != ():
                 aRequest = aWinnerLoser.sendingMyGhostToConcludeTheExchange()
