@@ -55,9 +55,9 @@ class WinnerLoser(core.Agent):
             commonWallet = self.myWallet + myMaterial.myWallet
             share=float(rng.random())
             self.myWallet = commonWallet*share
-            self.materialWalletValueToBeReported = myMaterial.myWallet = commonWallet*(1-share)  
+            self.materialWalletValueToBeReported = commonWallet*(1-share)  
             tr()
-            myMaterial.myGhostCounterpartId = self.uid
+            myMaterial.myGhostCounterpartId = self.uid  ##BESTIEE!!!!!
             #print("@@@@@@@", myMaterial.myGhostCounterpartId, myMaterial)
     
     
