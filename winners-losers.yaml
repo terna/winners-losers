@@ -1,5 +1,5 @@
 myRandom.seed: [4301,4312,4423,4534,4645]
-stop.at: 5
-WinnerLoser.count: 24
+stop.at: 200
+WinnerLoser.count: 1200
 log_file_root: 'wallets'
 rank_interaction: True

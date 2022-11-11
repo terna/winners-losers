@@ -56,16 +56,16 @@ class Model:
                 is of a type that has a non null tp_call (c struct) member which 
                 indicates callability otherwise (such as in functions, methods etc.)
         """
-        runner.schedule_repeating_event(0  , 1, self.counter)
-        runner.schedule_repeating_event(0.1, 1, self.agentsChoosingCounterpart)
-        runner.schedule_repeating_event(0.2, 1, self.agentsSendingTheirGhosts)      
-        runner.schedule_repeating_event(0.3, 1, self.agentsExchangingInTheirRanks)
-        runner.schedule_repeating_event(0.4, 1, self.sync)
-        runner.schedule_repeating_event(0.5, 1, self.ghostsExchangingInDifferentRanks)
-        runner.schedule_repeating_event(0.6, 1,\
+        runner.schedule_repeating_event(0,    1, self.counter)
+        runner.schedule_repeating_event(0.1,  1, self.agentsChoosingCounterpart)
+        runner.schedule_repeating_event(0.11, 1, self.agentsSendingTheirGhosts)      
+        runner.schedule_repeating_event(0.12, 1, self.agentsExchangingInTheirRanks)
+        runner.schedule_repeating_event(0.2,  1, self.sync)
+        runner.schedule_repeating_event(0.21, 1, self.ghostsExchangingInDifferentRanks)
+        runner.schedule_repeating_event(0.22, 1,\
                                   self.agentsHavingExchangedWithGhostsPreparingTheirOwnGhosts)
-        runner.schedule_repeating_event(0.7, 1, self.agentsSendingTheirGhosts)
-        runner.schedule_repeating_event(0.8, 1, self.messengerGhostsReportingOccuredExchanges)
+        runner.schedule_repeating_event(0.23, 1, self.agentsSendingTheirGhosts)
+        runner.schedule_repeating_event(0.24, 1, self.messengerGhostsReportingOccuredExchanges)
         """
         schedule_stop(at)
         Schedules the execution of this schedule to stop at the specified tick.
@@ -125,7 +125,7 @@ class Model:
             aRequest = aWinnerLoser.choosingRankAndCreatingItsGhostIfAny()
             if aRequest != None: self.mToBcast.append(aRequest)
     
-        print(self.mToBcast, "£££££££££££££££££", rank, t(), flush = True)
+        #print(self.mToBcast, "£££££££££££££££££", rank, t(), flush = True)
         
         
         
@@ -170,8 +170,14 @@ class Model:
     
     def ghostsExchangingInDifferentRanks(self):          
         if not (params['rank_interaction'] or rankNum==1): return     
+        # clean preios initilizations in materials and ghosts
         for aWinnerLoser in context.agents(agent_type=0):
             aWinnerLoser.myGhostCounterpartId = ()
+        if not agent_cache == {}:
+            currentGhostList=list(agent_cache.keys())
+            for i in range(len(agent_cache)):                
+                agent_cache[currentGhostList[i]].myGhostCounterpartId = ()
+
         
         del self.mToBcast 
         self.mToBcast = [rank] 
@@ -190,7 +196,7 @@ class Model:
             if aWinnerLoser.myGhostCounterpartId != ():
                 aRequest = aWinnerLoser.sendingMyGhostToConcludeTheExchange()
                 if aRequest != None: self.mToBcast.append(aRequest)
-        print(self.mToBcast, "$$$$$$$$$$$$$$$$$", rank, t(), flush = True)
+        #print(self.mToBcast, "$$$$$$$$$$$$$$$$$", rank, t(), flush = True)
         
     
     def messengerGhostsReportingOccuredExchanges(self):
@@ -213,7 +219,7 @@ class Model:
         filling projection buffers with ghosts, updating ghosted state and so forth.
 
         Parameters
-        restore_agent (Callable) – a callable that takes agent state data and returns 
+        restore_agent (Callable) – a calluable that takes agent state data and returns 
         an agent instance from that data. The data is a tuple whose first element 
         is the agent’s unique id tuple, and the second element is the agent’s state, 
         as returned by that agent’s type’s save() method.

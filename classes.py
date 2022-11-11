@@ -51,25 +51,33 @@ class WinnerLoser(core.Agent):
     def actingAsGhost(self, materialsReadyToExchange):
         if materialsReadyToExchange == []: return #maybe unuseful
         if self.counterpartRank==rank: 
-            myMaterial = materialsReadyToExchange.pop(int(rng.integers(0,len(materialsReadyToExchange))))
-            commonWallet = self.myWallet + myMaterial.myWallet
+                           # the choice of the WL sending the ghost is to op. here
+            materialCounterpart = materialsReadyToExchange.pop(int(rng.integers(0,len(materialsReadyToExchange))))
+            commonWallet = self.myWallet + materialCounterpart.myWallet
             share=float(rng.random())
-            self.myWallet = commonWallet*share
-            self.materialWalletValueToBeReported = commonWallet*(1-share)  
+            self.myWallet = commonWallet*share 
+                           # the ghost wallet, not relevant
+            materialCounterpart.materialWalletValueToBeReported = self.myWallet
+                           # the wallet to be reported the WL sending the ghost
+            materialCounterpart.myWallet = commonWallet*(1-share)
+                           # the counterpart wallet
             tr()
-            myMaterial.myGhostCounterpartId = self.uid  ##BESTIEE!!!!!
-            #print("@@@@@@@", myMaterial.myGhostCounterpartId, myMaterial)
+            
+            materialCounterpart.myGhostCounterpartId = self.uid
+            #print("@@@@@@@", materialCounterpart.myGhostCounterpartId, materialCounterpart)
     
     
     def actingAsReportingGhost(self, materialsToReportTo):
         if materialsToReportTo == []: return #maybe unuseful
         if self.myGhostCounterpartId == (): return #because it is not a reportingGhost(messenger)
+        
         notFound = True
         i = 0
         while notFound: 
-            print(materialsToReportTo[i].uid, self.myGhostCounterpartId, rank, t(), "OOOOOOOOOOOOOOOOOOOO", flush = True)
             if materialsToReportTo[i].uid == self.myGhostCounterpartId:
-                print("WWWWWWWWWWWWW", i, len(materialsToReportTo), rank, t(), flush =True)
+                #print("FOUND", rank, t(), materialsToReportTo[i].uid,\
+                #      self.myGhostCounterpartId, self.materialWalletValueToBeReported,\
+                #      self.myWallet, flush =True)
                 notFound = False
                 materialsToReportTo[i].myWallet = self.materialWalletValueToBeReported
             else: 
@@ -81,7 +89,10 @@ class WinnerLoser(core.Agent):
     def sendingMyGhostToConcludeTheExchange(self) -> List:
 
         #return [self.uid[2], (self.uid, self.uid[2])]
-        return [self.myGhostCounterpartId[2], (self.myGhostCounterpartId, self.myGhostCounterpartId[2])]
+        #return [self.myGhostCounterpartId[2], (self.myGhostCounterpartId, self.myGhostCounterpartId[2])]
+        return [self.myGhostCounterpartId[2], (self.uid, self.uid[2])]
+               # sending a ghost from myself to the rank from where the counterpart ghost
+               # was coming
 
         
      
