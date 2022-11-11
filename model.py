@@ -63,8 +63,9 @@ class Model:
         runner.schedule_repeating_event(0.4, 1, self.sync)
         runner.schedule_repeating_event(0.5, 1, self.ghostsExchangingInDifferentRanks)
         runner.schedule_repeating_event(0.6, 1,\
-                                  self.agentsHavingExchancedWithGhostsPreparingTheirOwnGhosts)
-        #runner.schedule_repeating_event(0.7, 1, self.agentsSendingTheirGhosts)
+                                  self.agentsHavingExchangedWithGhostsPreparingTheirOwnGhosts)
+        runner.schedule_repeating_event(0.7, 1, self.agentsSendingTheirGhosts)
+        runner.schedule_repeating_event(0.8, 1, self.messengerGhostsReportingOccuredExchanges)
         """
         schedule_stop(at)
         Schedules the execution of this schedule to stop at the specified tick.
@@ -85,7 +86,7 @@ class Model:
                                                 #to subdivide the total #pt
             # create and add the agent to the context
             aWallet=1 #10 * rng.random()
-            aWinnerLoser = WinnerLoser(i,rank,aWallet,-1,())
+            aWinnerLoser = WinnerLoser(i,rank,aWallet,-1,(), 0)
             context.add(aWinnerLoser)
         
             
@@ -183,13 +184,25 @@ class Model:
        
     
     #preparing mToBcast
-    def agentsHavingExchancedWithGhostsPreparingTheirOwnGhosts(self):
+    def agentsHavingExchangedWithGhostsPreparingTheirOwnGhosts(self):
         if not (params['rank_interaction'] or rankNum==1): return
         for aWinnerLoser in context.agents(agent_type=0):
             if aWinnerLoser.myGhostCounterpartId != ():
                 aRequest = aWinnerLoser.sendingMyGhostToConcludeTheExchange()
                 if aRequest != None: self.mToBcast.append(aRequest)
         print(self.mToBcast, "$$$$$$$$$$$$$$$$$", rank, t(), flush = True)
+        
+    
+    def messengerGhostsReportingOccuredExchanges(self):
+        if not (params['rank_interaction'] or rankNum==1): return
+        
+        
+        materialsToReportTo = list(context.agents(agent_type=0)).copy()     
+        if not agent_cache == {}:
+            currentReportingGhostList=list(agent_cache.keys())
+            for i in range(len(agent_cache)):                
+                agent_cache[currentReportingGhostList[i]].actingAsReportingGhost(materialsToReportTo)
+    
 
                     
         
