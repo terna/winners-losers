@@ -130,7 +130,7 @@ class Model:
         
         
     def agentsSendingTheirGhosts(self):
-        if not (params['rank_interaction'] or rankNum==1): return     
+        if (not params['rank_interaction']) or rankNum==1: return     
 
         broadcastGhostRequests(self.mToBcast, Model.PARAMS, rankNum, rank, comm, ghostsToRequest)  #broadcasting
         
@@ -169,7 +169,7 @@ class Model:
    
     
     def ghostsExchangingInDifferentRanks(self):          
-        if not (params['rank_interaction'] or rankNum==1): return     
+        if (not params['rank_interaction']) or rankNum==1: return     
         # clean preios initilizations in materials and ghosts
         for aWinnerLoser in context.agents(agent_type=0):
             aWinnerLoser.myGhostCounterpartId = ()
@@ -191,7 +191,7 @@ class Model:
     
     #preparing mToBcast
     def agentsHavingExchangedWithGhostsPreparingTheirOwnGhosts(self):
-        if not (params['rank_interaction'] or rankNum==1): return
+        if (not params['rank_interaction']) or rankNum==1: return
         for aWinnerLoser in context.agents(agent_type=0):
             if aWinnerLoser.myGhostCounterpartId != ():
                 aRequest = aWinnerLoser.sendingMyGhostToConcludeTheExchange()
@@ -200,7 +200,7 @@ class Model:
         
     
     def messengerGhostsReportingOccuredExchanges(self):
-        if not (params['rank_interaction'] or rankNum==1): return
+        if (not params['rank_interaction']) or rankNum==1: return
         
         
         materialsToReportTo = list(context.agents(agent_type=0)).copy()     
@@ -213,6 +213,8 @@ class Model:
                     
         
     def sync(self):
+        if (not params['rank_interaction']) or rankNum==1: return             
+        
         """
         synchronize(restore_agent, sync_ghosts=True)
         Synchronizes the model state across processes by moving agents, 
