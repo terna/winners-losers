@@ -243,13 +243,18 @@ class Model:
         
         allTheMovAv = []
         for aWinnerLoser in context.agents(agent_type=0):
-            if aWinnerLoser.uid == (0,0,0): print("%%%%%%",aWinnerLoser.movAvElements)
+            #if aWinnerLoser.uid == (0,0,0): print("%%%%%%",aWinnerLoser.movAvElements)
             if aWinnerLoser.movAvElements != []: allTheMovAv.\
                append(np.sum(aWinnerLoser.movAvElements)/len(aWinnerLoser.movAvElements))
                 
             
         print("\n\nBye bye by rank",rank,"at tick",t(),"clock",T(),\
               "transaction #", tr(True), flush=True)
+        
+        with open(params["log_file_root"]+"MovAv"+str(rank)+'.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(allTheMovAv)
+        
 
         
     def start(self):
