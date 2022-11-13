@@ -89,9 +89,7 @@ class Model:
             aWinnerLoser = WinnerLoser(i,rank,aWallet,-1,(), 0)
             context.add(aWinnerLoser)
         
-            
-
-        
+    
     def counter(self):
         if int(t()) % 100 == 0: print("rank", rank, "tick", t(), flush=True)
     
@@ -239,14 +237,20 @@ class Model:
         for aWinnerLoser in context.agents(agent_type=0):
             allTheWallets.append(aWinnerLoser.myWallet)
         
-        print("\n\nBye bye by rank",rank,"at tick",t(),"clock",T(),\
-              "transaction #", tr(True), flush=True)
-        #print(allTheWallets, flush = True)
-        
         with open(params["log_file_root"]+str(rank)+'.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(allTheWallets)
+        
+        allTheMovAv = []
+        for aWinnerLoser in context.agents(agent_type=0):
+            if aWinnerLoser.uid == (0,0,0): print("%%%%%%",aWinnerLoser.movAvElements)
+            if aWinnerLoser.movAvElements != []: allTheMovAv.\
+               append(np.sum(aWinnerLoser.movAvElements)/len(aWinnerLoser.movAvElements))
                 
+            
+        print("\n\nBye bye by rank",rank,"at tick",t(),"clock",T(),\
+              "transaction #", tr(True), flush=True)
+
         
     def start(self):
         runner.execute()

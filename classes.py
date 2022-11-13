@@ -25,6 +25,13 @@ class WinnerLoser(core.Agent):
         
         self.materialWalletValueToBeReported = materialWalletValueToBeReported
         
+        self.movAvElements = []
+        
+        
+    def movAv(self,x):
+        
+        self.movAvElements.append(x)
+        if len(self.movAvElements) > params['movAvElementNum']: self.movAvElements.pop(0)
         
     def choosingRankAndCreatingItsGhostIfAny(self) -> List:
         if params['rank_interaction']: self.counterpartRank = int(rng.integers(0,rankNum))
@@ -44,7 +51,9 @@ class WinnerLoser(core.Agent):
             commonWallet = self.myWallet + counterpart.myWallet
             share=float(rng.random())
             self.myWallet = commonWallet*share
+            self.movAv(self.myWallet)
             counterpart.myWallet = commonWallet*(1-share)
+            counterpart.movAv(counterpart.myWallet)
             tr()
             
         
@@ -53,14 +62,18 @@ class WinnerLoser(core.Agent):
         if materialsReadyToExchange == []: return #maybe unuseful
         if self.counterpartRank==rank: 
                            # the choice of the WL sending the ghost is to op. here
+                           # maybe, the WL has also ghosts in other ranks
             materialCounterpart = materialsReadyToExchange.pop(int(rng.integers(0,len(materialsReadyToExchange))))
             commonWallet = self.myWallet + materialCounterpart.myWallet
             share=float(rng.random())
             self.myWallet = commonWallet*share 
                            # the ghost wallet, not relevant
+            self.movAv(self.myWallet) #?????
             materialCounterpart.materialWalletValueToBeReported = self.myWallet
                            # the wallet to be reported the WL sending the ghost
+                           # in the while, also the movAa() f. will be activated
             materialCounterpart.myWallet = commonWallet*(1-share)
+            materialCounterpart.movAv(materialCounterpart.myWallet)
                            # the counterpart wallet
             tr()
             
@@ -81,6 +94,7 @@ class WinnerLoser(core.Agent):
                 #      self.myWallet, flush =True)
                 notFound = False
                 materialsToReportTo[i].myWallet = self.materialWalletValueToBeReported
+                materialsToReportTo[i].movAv(self.materialWalletValueToBeReported)
             else: 
                 i+=1
                 if i == len(materialsToReportTo): return
