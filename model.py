@@ -248,8 +248,8 @@ class Model:
                append(np.sum(aWinnerLoser.movAvElements)/len(aWinnerLoser.movAvElements))
                 
             
-        print("\n\nBye bye by rank",rank,"at tick",t(),"clock",T(),\
-              "transaction #", tr(True), flush=True)
+        print("\n\nBye bye by rank",rank,"at tick",t(),"elapsed time",T(),\
+              "CPU time",Tc(),"transaction #", tr(True), flush=True)
         
         with open(params["log_file_root"]+"MovAv"+str(rank)+'.csv', 'w', newline='') as file:
             writer = csv.writer(file)

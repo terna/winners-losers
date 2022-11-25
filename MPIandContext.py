@@ -89,6 +89,16 @@ def T():
 
 T()
 
+#cpuTimer Tc()
+startCpuTime=-1
+def Tc():
+    global startCpuTime
+    if startCpuTime < 0:
+        startCpuTime=time.process_time()
+    return time.process_time() - startCpuTime
+
+Tc()
+
 # count transactions
 transactions = 0
 def tr(total=False):
