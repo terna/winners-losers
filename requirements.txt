@@ -2,5 +2,4 @@ mpi4py
 repast4py
 numpy
 matplotlib
-icecream
 json
