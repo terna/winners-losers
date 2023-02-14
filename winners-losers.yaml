@@ -4,5 +4,6 @@ WinnerLoser.count: 3200
 log_file_root: 'wallets'
 rank_interaction: True
 movAvElementNum: 5
-show.intervalTime: True
+show.timeBySteps: True
 tickNumber.betweenChecks: 10
+show.timeByTicksAndRanks: True
