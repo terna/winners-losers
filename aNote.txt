@@ -8,6 +8,6 @@ A note on Winners-Losers improvements after the first version (actual programmin
 
 - as we do not request the creation of the ghosts to act as messenger if they already have been created in the same capacity or as negotiators, the request action cannot synchronize them, so we add a general sync step (sync2, in the code) [#1111111];
 
-- improvement of the report message to agents step;
+- improvement of the reporting of the messages to the agents;
 
 - making agent actions more complicated when they trade to demonstrate the usefulness of using multiple ranks, which is unnecessary and even counterproductive if the task is very simple and fast.
