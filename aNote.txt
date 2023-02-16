@@ -1,13 +1,13 @@
 A note on Winners-Losers improvements after the first version (actual programming defects or lack of full understanding of the ghost mechanism):
 
-- speed-up version of exchanges within one's own rank [agentsExchangingInTheirRankFast];
+- speed-up version of exchanges within one's own rank [agentsExchangingInTheirRankFast] [#0000a #0000b];
 
-- introduction of the analysis of execution times of the different steps (total and. for some one, tick by tick), with on/off switch as yaml file variables;
+- introduction of the analysis of execution times of the different steps (total and. for someone, tick by tick), with on/off switch as yaml file variables;
 
 - improvement of the request to create messenger ghosts: each ghost can be a negotiator or messenger, if it already exists it should not be asked to be created again, and if it needs to be created, the creation is recorded;
 
-- as we do not request the creation of the ghosts to act as messenger if they already have been created in the same capacity or as negotiators, the request action cannot synchronize them, so we add a general sync step (sync2, in the code) [#1111111];
+- as we do not request the creation of the ghosts to act as messengers if they already have been created in the same capacity or as negotiators, the request action cannot synchronize them, so we add a general sync step (sync2, in the code) [#1111111];
 
-- improvement of the reporting of the messages to the agents;
+- improvement of the reporting of the messages to the agents [#2222222];
 
-- making agent actions more complicated when they trade to demonstrate the usefulness of using multiple ranks, which is unnecessary and even counterproductive if the task is very simple and fast.
+- making agent actions more complicated when they trade; this is to demonstrate the usefulness of using multiple ranks, which is unnecessary and even counterproductive if the task is very simple and fast.
