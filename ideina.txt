@@ -1,0 +1,23 @@
+Ideina
+
+Tre scopi:
+
+- strumentale: ralletare il passo "in rank" in modo che sia conveniente suddividerlo:
+
+- prepare model1 con le azioni multiple negli acquisti, che sono frazionati tra più venditori; 
+  più in generale, frazionati negli scambi;
+  
+- investigare intorno a winners-losers (il meno importante).
+
+
+Ognuno crea a caso un sottoinsieme di WL con cui confrontarsi (di venditori da cui comperare, cercandoli in tutti i rank, con la condizione che abbiamo un wallet maggior del suo (un prezzo di riserva minoe del tuo e abbiamo merce);
+
+Ne sceglie a caso uno in quel sottoinsieme e così determina anche se opera nel rank o furoi rank.
+
+Entra in contatto con quell'agente, SE non ha cambiato intanto il wallet unisce i wallet (SE non ha cambiato il prezzo e se ha ancora merce, compera).
+
+In caso di insuccesso sceglie un altro dei preselezionati (sempre nelli stesso tick).
+
+Grandi problemi di sync e parallelismo.
+
+Forse da semplificare.
