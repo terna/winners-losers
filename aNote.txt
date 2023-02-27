@@ -10,4 +10,6 @@ A note on Winners-Losers improvements after the first version (actual programmin
 
 - improvement of the reporting of the messages to the agents [#2222222];
 
+- added the capability of anticipating the creation of all the ghosts in the beginning of the simulation, with the parameter sendingGhostsAllAtOnce: True;
+
 - making agent actions more complicated when they trade; this is to demonstrate the usefulness of using multiple ranks, which is unnecessary and even counterproductive if the task is very simple and fast.
