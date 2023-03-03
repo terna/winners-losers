@@ -12,4 +12,10 @@ A note on Winners-Losers improvements after the first version (actual programmin
 
 - added the capability of anticipating the creation of all the ghosts in the beginning of the simulation, with the parameter sendingGhostsAllAtOnce: True;
 
+- introduced the push or pull choice in sending the ghosts, as each rank can reconstruct the 'uid' of the agents of the other ranks and call them with a pull action;
+
+- substituted the synchronize function of context with the faster request_agents, as the ghostsToRequest list is filled at the beginning and never modified;
+
+- to do: instead of synchronising agents, diffuse wallet values using a numpy matrix;
+
 - making agent actions more complicated when they trade; this is to demonstrate the usefulness of using multiple ranks, which is unnecessary and even counterproductive if the task is very simple and fast.
