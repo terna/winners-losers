@@ -1,0 +1,5 @@
+
+rank number 1
+33 agent
+kkk=0
+elapsed time  0.144 CPU time  0.145
