@@ -1,5 +1,16 @@
 
 rank number 1
-33 agent
-kkk=0
+33 agents
+losingTime=0
 elapsed time  0.144 CPU time  0.145
+
+rank number 1
+33 agents
+losingTime=3000
+elapsed time  0.267 CPU time  0.239
+time per agent-cyle (0.239-0.145)/(33*2) => 0,00142
+
+rank number 3
+33 agents
+kkk=0
+

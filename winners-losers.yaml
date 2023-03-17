@@ -9,3 +9,4 @@ tickNumber.betweenChecks: 10
 show.timeByTicksAndRanks: False
 sendingGhostsAllAtOnce: True
 sendingGhostsAllAtOnce.pushOrPull: "pull"
+losingTime: 3000
