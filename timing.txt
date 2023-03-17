@@ -62,3 +62,50 @@ howManyCycles: 20
 3300 agents
 losingTime=30000
 Leo elapsed time 198.620 CPU time 198.468
+
+===================
+
+tutto su macchina Pietro
+
+rank number 1
+howManyCycles: 20
+3300 agents
+losingTime=30000
+elapsed time 543.525 CPU time 520.385
+Intervals in rank  0
+0 initGhostsIfAny  0.000
+1 counter  0.003
+2 agentsChoosingCounterpartRank  0.245
+3 broadcastGhostRequests1  0.000
+4 request_agents(ghostsToRequest...)1  0.000
+5 agentsExchangingInTheirRanks 519.812
+6 sync1  0.000
+7 ghostsExchangingInDifferentRanks  0.000
+8 agentsHavingExchangedWithGhostsPreparingTheirOwnGhosts  0.000
+9 broadcastGhostRequests2  0.000
+10 request_agents(ghostsToRequest...)2  0.000
+11 sync2  0.000
+12 messengerGhostsReportingOccuredExchanges  0.000
+
+
+rank number 3
+howManyCycles: 20
+3300 agents
+losingTime=30000
+elapsed time 333.393 CPU time 306.90 (rank 0, all very close)
+Intervals in rank  0
+0 initGhostsIfAny  0.112
+1 counter  0.000
+2 agentsChoosingCounterpartRank  0.158
+3 broadcastGhostRequests1  0.000
+4 request_agents(ghostsToRequest...)1  0.000
+5 agentsExchangingInTheirRanks 100.113
+6 sync1  0.312
+7 ghostsExchangingInDifferentRanks 198.953
+8 agentsHavingExchangedWithGhostsPreparingTheirOwnGhosts  0.019
+9 broadcastGhostRequests2  0.000
+10 request_agents(ghostsToRequest...)2  0.000
+11 sync2  0.324
+12 messengerGhostsReportingOccuredExchanges  0.106
+
+
