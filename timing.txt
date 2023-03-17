@@ -1,16 +1,37 @@
 
 rank number 1
+howManyCycles: 2
 33 agents
 losingTime=0
 elapsed time  0.144 CPU time  0.145
 
 rank number 1
+howManyCycles: 2
 33 agents
 losingTime=3000
-elapsed time  0.267 CPU time  0.239
-time per agent-cyle (0.239-0.145)/(33*2) => 0,00142
+elapsed time  0.333 CPU time  0.286
+time lost per agent-cycle (0.286-0.145)/(33*2) => ) = 0,00214
+
+rank number 1
+howManyCycles: 20
+3300 agents
+losingTime=3000
+elapsed time 56.250 CPU time 53.801
 
 rank number 3
+howManyCycles: 2
 33 agents
-kkk=0
+losingTime=0
+elapsed time  0.086 CPU time  0.082
 
+rank number 3
+howManyCycles: 2
+33 agents
+losingTime=3000
+elapsed time  0.213 CPU time  0.187
+
+rank number 3
+howManyCycles: 20
+3300 agents
+losingTime=3000
+elapsed time 35.344 CPU time 33.271
