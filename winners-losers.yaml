@@ -1,12 +1,13 @@
 myRandom.seed: [4301,4312,4423,4534,4645,1312,1313,1314,1315,1316,1317,1318,1319,1320,1321,1322,1323,1324,1325]
-howManyCycles: 20
-WinnerLoser.count: 3300
+howManyCycles: 2
+WinnerLoser.count: 33
 log_file_root: 'wallets'
 rank_interaction: True
+counterpartsRatio: 0.4
 movAvElementNum: 5
 show.timeBySteps: True
 tickNumber.betweenChecks: 10
 show.timeByTicksAndRanks: False
 sendingGhostsAllAtOnce: True
 sendingGhostsAllAtOnce.pushOrPull: "pull"
-losingTime: 3000
+losingTime: 0

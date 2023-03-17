@@ -10,7 +10,7 @@ Tre scopi:
 - investigare intorno a winners-losers (il meno importante).
 
 
-Ognuno crea a caso un sottoinsieme di WL con cui confrontarsi (di venditori da cui comperare) cercandoli in tutti i rank, con la condizione che abbiamo un wallet maggior del suo (un prezzo di riserva minore del suo e abbiano merce);
+Ognuno crea a caso un sottoinsieme di WL con cui confrontarsi (di venditori da cui comperare) cercandoli in tutti i rank, con la condizione che abbiamo un wallet maggiore del suo (un prezzo di riserva minore del suo e abbiano merce);
 
 Ne sceglie a caso uno in quel sottoinsieme e così determina anche se opera nel rank o fuori rank.
 

@@ -17,6 +17,7 @@ howManyCycles: 20
 3300 agents
 losingTime=3000
 elapsed time 56.250 CPU time 53.801
+Leo: elapsed time 34.818 CPU time 34.823
 
 rank number 3
 howManyCycles: 2
@@ -35,3 +36,29 @@ howManyCycles: 20
 3300 agents
 losingTime=3000
 elapsed time 35.344 CPU time 33.271
+Leo elapsed time 17.067 CPU time 17.055
+
+rank number 7
+howManyCycles: 20
+3300 agents
+losingTime=3000
+Leo 17.211 CPU time 17.183
+
+
+rank number 1
+howManyCycles: 20
+3300 agents
+losingTime=30000
+Leo elapsed time 447.253 CPU time 447.311
+
+rank number 3
+howManyCycles: 20
+3300 agents
+losingTime=30000
+Leo elapsed time 244.972 CPU time 244.959
+
+rank number 7
+howManyCycles: 20
+3300 agents
+losingTime=30000
+Leo elapsed time 198.620 CPU time 198.468
