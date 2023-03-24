@@ -3,7 +3,9 @@ howManyCycles: 2
 WinnerLoser.count: 32
 log_file_root: 'wallets'
 rank_interaction: True
-counterpartsRatio: 0.4
+counterpartRatio: 0.4
+maxNumberOfExchangeAttempts: 1
+onlyRicherAgents: False
 movAvElementNum: 5
 show.timeBySteps: True
 tickNumber.betweenChecks: 10
