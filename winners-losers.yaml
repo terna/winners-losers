@@ -6,6 +6,7 @@ rank_interaction: True
 counterpartRatio: 0.4
 maxNumberOfExchangeAttempts: 1
 onlyRicherAgents: False
+USE.NEW.SYSTEM: True
 movAvElementNum: 5
 show.timeBySteps: True
 tickNumber.betweenChecks: 10
