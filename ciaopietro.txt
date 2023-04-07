@@ -1,0 +1,64 @@
+[22;0t]0;IPython: projects/winners-losersrank 0 tick 0.0
+[22;0t]0;IPython: projects/winners-losersrank 1 tick 0.0
+rank 0 exchanging attempt # 0
+rank 1 exchanging attempt # 0
+agent exchanging locally rank 0 chooser agent uid and wallet (0, 0, 0) 1.5558860274100255 choosen agent uid and wallet (2, 0, 0) 0.2668699939698829
+agent exchanging locally rank 1 chooser agent uid and wallet (3, 0, 1) 0.5492922666487025 choosen agent uid and wallet (0, 0, 1) 0.4089631716518095
+agent exchanging locally rank 0 chooser agent uid and wallet (1, 0, 0) 0.3008215230226579 choosen agent uid and wallet (1, 0, 0) 0.3008215230226579
+ag exch via ghosts rank 0 ghost of ag abroad as chooser, uid and flag about yet chooser (0, 0, 1) False loc ag as choosen, uid and flag about yet choosen (0, 0, 0) False
+choosen wallet 0.8680080007464158 choosen wallet to be reported 1.0968411983154192
+ag exch via ghosts rank 0 ghost of ag abroad as chooser, uid and flag about yet chooser (1, 0, 1) False loc ag as choosen, uid and flag about yet choosen (3, 0, 0) False
+choosen wallet 0.31209386661356847 choosen wallet to be reported 0.22890663279104634
+ag exch via ghosts rank 0 ghost of ag abroad as chooser, uid and flag about yet chooser (2, 0, 1) False loc ag as choosen, uid and flag about yet choosen (1, 0, 0) True
+ag exch via ghosts rank 1 ghost of ag abroad as chooser, uid and flag about yet chooser (2, 0, 0) False loc ag as choosen, uid and flag about yet choosen (2, 0, 1) False
+choosen wallet 0.11995463136139686 choosen wallet to be reported 0.18043156125094487
+CIAO PIETROOOOOOOOOO 0.8680080007464158 [1.5558860274100255]
+CIAO PIETROOOOOOOOOO 0.18043156125094487 [0.2668699939698829, 0.18043156125094487]
+CIAO PIETROOOOOOOOOO 0.31209386661356847 []
+rank 0 exchanging attempt # 1
+CIAO PIETROOOOOOOOOO 1.0968411983154192 [0.4089631716518095, 1.0968411983154192]
+CIAO PIETROOOOOOOOOO 0.22890663279104634 [0.22890663279104634]
+CIAO PIETROOOOOOOOOO 0.11995463136139686 []
+rank 1 exchanging attempt # 1
+agent exchanging locally rank 1 chooser agent uid and wallet (1, 0, 1) 0.1958711375599055 choosen agent uid and wallet (1, 0, 1) 0.1958711375599055
+ag exch via ghosts rank 0 ghost of ag abroad as chooser, uid and flag about yet chooser (3, 0, 1) True loc ag as choosen, uid and flag about yet choosen (2, 0, 0) True
+ag exch via ghosts rank 1 ghost of ag abroad as chooser, uid and flag about yet chooser (1, 0, 0) True loc ag as choosen, uid and flag about yet choosen (2, 0, 1) True
+ag exch via ghosts rank 1 ghost of ag abroad as chooser, uid and flag about yet chooser (3, 0, 0) False loc ag as choosen, uid and flag about yet choosen (3, 0, 1) False
+choosen wallet 0.6467155105496264 choosen wallet to be reported 0.21467062271264464
+CIAO PIETROOOOOOOOOO 0.3008215230226579 [1.4681031627903096, 0.3008215230226579]
+CIAO PIETROOOOOOOOOO 0.21467062271264464 [0.21467062271264464]
+rank 0 exchanging attempt # 2
+CIAO PIETROOOOOOOOOO 0.22890663279104634 [0.5492922666487025, 0.22890663279104634]
+rank 1 exchanging attempt # 2
+ag exch via ghosts rank 0 ghost of ag abroad as chooser, uid and flag about yet chooser (2, 0, 1) False loc ag as choosen, uid and flag about yet choosen (1, 0, 0) True
+ag exch via ghosts rank 0 ghost of ag abroad as chooser, uid and flag about yet chooser (3, 0, 1) True loc ag as choosen, uid and flag about yet choosen (0, 0, 0) True
+ag exch via ghosts rank 1 ghost of ag abroad as chooser, uid and flag about yet chooser (0, 0, 0) True loc ag as choosen, uid and flag about yet choosen (3, 0, 1) True
+ag exch via ghosts rank 1 ghost of ag abroad as chooser, uid and flag about yet chooser (1, 0, 0) True loc ag as choosen, uid and flag about yet choosen (3, 0, 1) True
+ag exch via ghosts rank 1 ghost of ag abroad as chooser, uid and flag about yet chooser (2, 0, 0) False loc ag as choosen, uid and flag about yet choosen (2, 0, 1) True
+CIAO PIETROOOOOOOOOO 0.8680080007464158 [1.5558860274100255]
+CIAO PIETROOOOOOOOOO 0.3008215230226579 [1.4681031627903096, 0.3008215230226579]
+CIAO PIETROOOOOOOOOO 0.18043156125094487 [0.2668699939698829, 0.18043156125094487]
+CIAO PIETROOOOOOOOOO 0.11995463136139686 []
+CIAO PIETROOOOOOOOOO 0.22890663279104634 [0.5492922666487025, 0.22890663279104634]
+
+
+Bye bye by rank 0 at tick 1.0 elapsed time  0.049 CPU time  0.042 transaction # 4
+
+
+Bye bye by rank 1 at tick 1.0 elapsed time  0.049 CPU time  0.041 transaction # 4
+USE.NEW.SYSTEM True
+Intervals in rank  0
+0 initGhostsIfAny  0.000
+1 counter  0.000
+2 agentsCreatingCounterpartSubset  0.000
+3 agentsSelectingExchangingAndUpdating  0.001
+4 sync1  0.000
+5 sync2  0.000
+USE.NEW.SYSTEM True
+Intervals in rank  1
+0 initGhostsIfAny  0.000
+1 counter  0.000
+2 agentsCreatingCounterpartSubset  0.000
+3 agentsSelectingExchangingAndUpdating  0.000
+4 sync1  0.000
+5 sync2  0.000
