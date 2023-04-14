@@ -1,5 +1,5 @@
 myRandom.seed: [4301,4312,4423,4534,4645,1312,1313,1314,1315,1316,1317,1318,1319,1320,1321,1322,1323,1324,1325]
-howManyCycles: 10
+howManyCycles: 1 #10
 WinnerLoser.count: 12
 log_file_root: 'wallets'
 rank_interaction: True
