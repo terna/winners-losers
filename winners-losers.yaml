@@ -1,6 +1,6 @@
-myRandom.seed: [4301,4312,4423,4534,4645,1312,1313,1314,1315,1316,1317,1318,1319,1320,1321,1322,1323,1324,1325]
+myRandom.seed: [4321,4322,4323,4324,4325,4326,4327,4328,4329,4330,4331,4332,4333,4334,4335,4336] # increase the number of items if more than 16 ranks
 howManyCycles: 1 #10
-WinnerLoser.count: 12
+WinnerLoser.count: 12 #1200
 log_file_root: 'wallets'
 rank_interaction: True
 counterpartRatio: 1.0
