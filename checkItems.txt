@@ -12,3 +12,8 @@ S        self.yetBeenChooser=False
 S        self.yetBeenChoosen=False
         
 S        self.agentAbroadWalletValueToBeReported=-1
+
+
+---
+
+ricorda yaml
