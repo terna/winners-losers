@@ -6,6 +6,7 @@ rank_interaction: True
 counterpartRatio: 0.6
 maxNumberOfExchangeAttempts: 10
 onlyRicherAgents: True
+howManyTimesRicher: 2 # <=1 means multiply by 1
 movAvElementNum: 5
 show.timeBySteps: True
 tickNumber.betweenChecks: 5
