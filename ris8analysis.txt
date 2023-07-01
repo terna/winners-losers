@@ -1,0 +1,120 @@
+rank 0 tick 0.0
+rank 1 tick 0.0
+rank 5 tick 0.0
+rank 6 tick 0.0
+rank 2 tick 0.0
+rank 3 tick 0.0
+rank 4 tick 0.0
+rank 7 tick 0.0
+rank 0 tick 5.0
+rank 1 tick 5.0
+rank 2 tick 5.0
+rank 3 tick 5.0
+rank 4 tick 5.0
+rank 5 tick 5.0
+rank 6 tick 5.0
+rank 7 tick 5.0
+rank 0 tick 10.0
+rank 1 tick 10.0
+rank 2 tick 10.0
+rank 3 tick 10.0
+rank 4 tick 10.0
+rank 5 tick 10.0
+rank 6 tick 10.0
+rank 7 tick 10.0
+Intervals in rank  2
+0 getUp  3.505
+1 init  0.007
+2 initGhostsIfAny  0.254
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 273.363
+5 agentsSelectingExchangingAndUpdating 188.762
+6 sync1 40.005
+7 sync2  8.933
+
+
+Bye bye by rank 2 at tick 10.0 elapsed time 547.727 CPU time 551.169 transaction # 10068 CPU time to report results  0.018
+Intervals in rank  1
+0 getUp  3.041
+1 init  0.011
+2 initGhostsIfAny  0.318
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 279.872
+5 agentsSelectingExchangingAndUpdating 190.791
+6 sync1 37.834
+7 sync2  9.072
+
+
+Bye bye by rank 1 at tick 10.0 elapsed time 547.817 CPU time 550.773 transaction # 10130 CPU time to report results  0.021
+Intervals in rank  0
+0 getUp  3.230
+Intervals in rank  5
+0 getUp  3.198
+1 init  0.010
+2 initGhostsIfAny  0.321
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 277.961
+5 agentsSelectingExchangingAndUpdating 187.200
+6 sync1 41.787
+7 sync2  8.762
+1 init  0.007
+2 initGhostsIfAny  0.258
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 259.181
+5 agentsSelectingExchangingAndUpdating 170.376
+6 sync1 58.328
+7 sync2  8.924
+
+
+Bye bye by rank 5 at tick 10.0 elapsed time 547.610 CPU time 550.708 transaction # 10150 CPU time to report results  0.021
+
+
+Bye bye by rank 0 at tick 10.0 elapsed time 547.624 CPU time 550.743 transaction # 10100 CPU time to report results  0.021
+Intervals in rank  7
+0 getUp  3.610
+1 init  0.011
+2 initGhostsIfAny  0.318
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 257.518
+5 agentsSelectingExchangingAndUpdating 171.975
+6 sync1 56.672
+7 sync2  9.014
+
+
+Bye bye by rank 7 at tick 10.0 elapsed time 547.814 CPU time 551.370 transaction # 10012 CPU time to report results  0.022
+Intervals in rank  4
+0 getUp  3.269
+1 init  0.006
+2 initGhostsIfAny  0.305
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 290.622
+5 agentsSelectingExchangingAndUpdating 194.001
+6 sync1 34.980
+7 sync2  8.724
+
+
+Bye bye by rank 4 at tick 10.0 elapsed time 547.868 CPU time 550.957 transaction # 10190 CPU time to report results  0.024
+Intervals in rank  3
+0 getUp  3.070
+1 init  0.006
+2 initGhostsIfAny  0.289
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 263.559
+5 agentsSelectingExchangingAndUpdating 183.842
+6 sync1 45.160
+7 sync2  8.703
+
+
+Bye bye by rank 3 at tick 10.0 elapsed time 547.837 CPU time 550.859 transaction # 10145 CPU time to report results  0.024
+Intervals in rank  6
+0 getUp  4.871
+1 init  0.007
+2 initGhostsIfAny  0.284
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 276.562
+5 agentsSelectingExchangingAndUpdating 197.342
+6 sync1 31.567
+7 sync2  8.807
+
+
+Bye bye by rank 6 at tick 10.0 elapsed time 547.869 CPU time 552.667 transaction # 10180 CPU time to report results  0.025
