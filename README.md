@@ -7,4 +7,4 @@ something close to the *Chakraborti model* in "Winners, Losers" example in [Is I
 
 The implementation uses Repast4Py ghosts.
 
-Look also at the main file at https://nbviewer.org/github/terna/winners-losers/blob/main/winners-losers.ipynb
+Look also at the file at https://nbviewer.org/github/terna/winners-losers/blob/main/winners-losers.ipynb
