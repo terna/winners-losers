@@ -1,0 +1,4 @@
+<IPython.core.display.Javascript object>
+rank 1 tick 0.0
+<IPython.core.display.Javascript object>
+rank 0 tick 0.0
