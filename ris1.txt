@@ -11,14 +11,14 @@ rank 0 tick 8.0
 rank 0 tick 9.0
 rank 0 tick 10.0
 Intervals in rank  0
-0 getUp  5.543
-1 init  0.057
+0 getUp  5.357
+1 init  0.050
 2 initGhostsIfAny  0.000
 3 counter  0.001
-4 agentsCreatingCounterpartSubset 918.372
-5 agentsSelectingExchangingAndUpdating 1201.637
+4 agentsCreatingCounterpartSubset 795.002
+5 agentsSelectingExchangingAndUpdating 1056.894
 6 sync1  0.001
 7 sync2  0.000
 
 
-Bye bye by rank 0 at tick 10.0 elapsed time 2122.490 CPU time 2125.636 transaction # 60270 CPU time to report results  0.110
+Bye bye by rank 0 at tick 10.0 elapsed time 1854.130 CPU time 1857.326 transaction # 60270 CPU time to report results  0.094

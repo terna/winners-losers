@@ -1,0 +1,672 @@
+<IPython.core.display.Javascript object>
+rank 6 tick 0.0
+<IPython.core.display.Javascript object>
+rank 24 tick 0.0
+<IPython.core.display.Javascript object>
+rank 15 tick 0.0
+<IPython.core.display.Javascript object>
+rank 7 tick 0.0
+<IPython.core.display.Javascript object>
+rank 18 tick 0.0
+<IPython.core.display.Javascript object>
+rank 21 tick 0.0
+<IPython.core.display.Javascript object>
+rank 19 tick 0.0
+<IPython.core.display.Javascript object>
+rank 13 tick 0.0
+<IPython.core.display.Javascript object>
+rank 11 tick 0.0
+<IPython.core.display.Javascript object>
+rank 23 tick 0.0
+<IPython.core.display.Javascript object>
+rank 1 tick 0.0
+<IPython.core.display.Javascript object>
+rank 27 tick 0.0
+<IPython.core.display.Javascript object>
+rank 3 tick 0.0
+<IPython.core.display.Javascript object>
+rank 16 tick 0.0
+<IPython.core.display.Javascript object>
+rank 2 tick 0.0
+<IPython.core.display.Javascript object>
+rank 26 tick 0.0
+<IPython.core.display.Javascript object>
+rank 8 tick 0.0
+<IPython.core.display.Javascript object>
+rank 4 tick 0.0
+<IPython.core.display.Javascript object>
+rank 22 tick 0.0
+<IPython.core.display.Javascript object>
+rank 5 tick 0.0
+<IPython.core.display.Javascript object>
+rank 14 tick 0.0
+<IPython.core.display.Javascript object>
+rank 17 tick 0.0
+<IPython.core.display.Javascript object>
+rank 12 tick 0.0
+<IPython.core.display.Javascript object>
+rank 0 tick 0.0
+<IPython.core.display.Javascript object>
+rank 9 tick 0.0
+<IPython.core.display.Javascript object>
+rank 10 tick 0.0
+<IPython.core.display.Javascript object>
+rank 20 tick 0.0
+<IPython.core.display.Javascript object>
+rank 25 tick 0.0
+rank 0 tick 1.0
+rank 2 tick 1.0
+rank 8 tick 1.0
+rank 12 tick 1.0
+rank 13 tick 1.0
+rank 4 tick 1.0
+rank 14 tick 1.0
+rank 3 tick 1.0
+rank 5 tick 1.0
+rank 10 tick 1.0
+rank 9 tick 1.0
+rank 1 tick 1.0
+rank 15 tick 1.0
+rank 6 tick 1.0
+rank 7 tick 1.0
+rank 16 tick 1.0
+rank 17 tick 1.0
+rank 18 tick 1.0
+rank 19 tick 1.0
+rank 11 tick 1.0
+rank 25 tick 1.0
+rank 24 tick 1.0
+rank 20 tick 1.0
+rank 22 tick 1.0
+rank 26 tick 1.0
+rank 21 tick 1.0
+rank 23 tick 1.0
+rank 27 tick 1.0
+rank 0 tick 2.0
+rank 1 tick 2.0
+rank 8 tick 2.0
+rank 10 tick 2.0
+rank 9 tick 2.0
+rank 12 tick 2.0
+rank 13 tick 2.0
+rank 14 tick 2.0
+rank 11 tick 2.0
+rank 2 tick 2.0
+rank 15 tick 2.0
+rank 16 tick 2.0
+rank 18 tick 2.0
+rank 17 tick 2.0
+rank 24 tick 2.0
+rank 4 tick 2.0
+rank 6 tick 2.0
+rank 20 tick 2.0
+rank 26 tick 2.0
+rank 3 tick 2.0
+rank 27 tick 2.0
+rank 5 tick 2.0
+rank 19 tick 2.0
+rank 25 tick 2.0
+rank 22 tick 2.0
+rank 7 tick 2.0
+rank 21 tick 2.0
+rank 23 tick 2.0
+rank 0 tick 3.0
+rank 16 tick 3.0
+rank 24 tick 3.0
+rank 1 tick 3.0
+rank 12 tick 3.0
+rank 8 tick 3.0
+rank 9 tick 3.0
+rank 10 tick 3.0
+rank 17 tick 3.0
+rank 2 tick 3.0
+rank 25 tick 3.0
+rank 14 tick 3.0
+rank 15 tick 3.0
+rank 26 tick 3.0
+rank 4 tick 3.0
+rank 20 tick 3.0
+rank 21 tick 3.0
+rank 22 tick 3.0
+rank 27 tick 3.0
+rank 13 tick 3.0
+rank 18 tick 3.0
+rank 19 tick 3.0
+rank 3 tick 3.0
+rank 23 tick 3.0
+rank 5 tick 3.0
+rank 6 tick 3.0
+rank 11 tick 3.0
+rank 7 tick 3.0
+rank 0 tick 4.0
+rank 4 tick 4.0
+rank 5 tick 4.0
+rank 8 tick 4.0
+rank 12 tick 4.0
+rank 13 tick 4.0
+rank 2 tick 4.0
+rank 3 tick 4.0
+rank 6 tick 4.0
+rank 16 tick 4.0
+rank 10 tick 4.0
+rank 20 tick 4.0
+rank 1 tick 4.0
+rank 9 tick 4.0
+rank 11 tick 4.0
+rank 14 tick 4.0
+rank 17 tick 4.0
+rank 18 tick 4.0
+rank 19 tick 4.0
+rank 21 tick 4.0
+rank 7 tick 4.0
+rank 22 tick 4.0
+rank 24 tick 4.0
+rank 25 tick 4.0
+rank 27 tick 4.0
+rank 26 tick 4.0
+rank 23 tick 4.0
+rank 15 tick 4.0
+rank 0 tick 5.0
+rank 1 tick 5.0
+rank 2 tick 5.0
+rank 8 tick 5.0
+rank 12 tick 5.0
+rank 13 tick 5.0
+rank 10 tick 5.0
+rank 3 tick 5.0
+rank 4 tick 5.0
+rank 11 tick 5.0
+rank 9 tick 5.0
+rank 5 tick 5.0
+rank 14 tick 5.0
+rank 16 tick 5.0
+rank 17 tick 5.0
+rank 20 tick 5.0
+rank 24 tick 5.0
+rank 7 tick 5.0
+rank 18 tick 5.0
+rank 22 tick 5.0
+rank 6 tick 5.0
+rank 26 tick 5.0
+rank 15 tick 5.0
+rank 25 tick 5.0
+rank 23 tick 5.0
+rank 21 tick 5.0
+rank 27 tick 5.0
+rank 19 tick 5.0
+rank 0 tick 6.0
+rank 8 tick 6.0
+rank 12 tick 6.0
+rank 4 tick 6.0
+rank 10 tick 6.0
+rank 13 tick 6.0
+rank 16 tick 6.0
+rank 17 tick 6.0
+rank 1 tick 6.0
+rank 9 tick 6.0
+rank 11 tick 6.0
+rank 14 tick 6.0
+rank 20 tick 6.0
+rank 21 tick 6.0
+rank 5 tick 6.0
+rank 6 tick 6.0
+rank 22 tick 6.0
+rank 23 tick 6.0
+rank 15 tick 6.0
+rank 24 tick 6.0
+rank 25 tick 6.0
+rank 18 tick 6.0
+rank 2 tick 6.0
+rank 3 tick 6.0
+rank 7 tick 6.0
+rank 19 tick 6.0
+rank 27 tick 6.0
+rank 26 tick 6.0
+rank 0 tick 7.0
+rank 4 tick 7.0
+rank 5 tick 7.0
+rank 16 tick 7.0
+rank 17 tick 7.0
+rank 18 tick 7.0
+rank 24 tick 7.0
+rank 25 tick 7.0
+rank 19 tick 7.0
+rank 6 tick 7.0
+rank 7 tick 7.0
+rank 20 tick 7.0
+rank 8 tick 7.0
+rank 1 tick 7.0
+rank 21 tick 7.0
+rank 10 tick 7.0
+rank 12 tick 7.0
+rank 13 tick 7.0
+rank 11 tick 7.0
+rank 26 tick 7.0
+rank 27 tick 7.0
+rank 9 tick 7.0
+rank 2 tick 7.0
+rank 3 tick 7.0
+rank 14 tick 7.0
+rank 22 tick 7.0
+rank 23 tick 7.0
+rank 15 tick 7.0
+rank 0 tick 8.0
+rank 4 tick 8.0
+rank 6 tick 8.0
+rank 8 tick 8.0
+rank 9 tick 8.0
+rank 1 tick 8.0
+rank 10 tick 8.0
+rank 11 tick 8.0
+rank 12 tick 8.0
+rank 16 tick 8.0
+rank 24 tick 8.0
+rank 26 tick 8.0
+rank 5 tick 8.0
+rank 7 tick 8.0
+rank 17 tick 8.0
+rank 20 tick 8.0
+rank 2 tick 8.0
+rank 14 tick 8.0
+rank 25 tick 8.0
+rank 22 tick 8.0
+rank 13 tick 8.0
+rank 15 tick 8.0
+rank 27 tick 8.0
+rank 18 tick 8.0
+rank 23 tick 8.0
+rank 3 tick 8.0
+rank 21 tick 8.0
+rank 19 tick 8.0
+rank 0 tick 9.0
+rank 4 tick 9.0
+rank 16 tick 9.0
+rank 18 tick 9.0
+rank 20 tick 9.0
+rank 22 tick 9.0
+rank 8 tick 9.0
+rank 10 tick 9.0
+rank 11 tick 9.0
+rank 12 tick 9.0
+rank 6 tick 9.0
+rank 17 tick 9.0
+rank 23 tick 9.0
+rank 1 tick 9.0
+rank 2 tick 9.0
+rank 14 tick 9.0
+rank 9 tick 9.0
+rank 19 tick 9.0
+rank 24 tick 9.0
+rank 25 tick 9.0
+rank 26 tick 9.0
+rank 27 tick 9.0
+rank 5 tick 9.0
+rank 13 tick 9.0
+rank 21 tick 9.0
+rank 7 tick 9.0
+rank 15 tick 9.0
+rank 3 tick 9.0
+rank 0 tick 10.0
+rank 4 tick 10.0
+rank 5 tick 10.0
+rank 6 tick 10.0
+rank 1 tick 10.0
+Intervals in rank  6
+0 getUp  3.149
+1 init  0.003
+2 initGhostsIfAny  0.364
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 78.099
+5 agentsSelectingExchangingAndUpdating 45.444
+6 sync1 33.948
+7 sync2 25.066
+
+
+Bye bye by rank 6 at tick 10.0 elapsed time 601.027 CPU time 200.139 transaction # 3121 CPU time to report results  0.005
+Intervals in rank  0
+0 getUp  3.258
+1 init  0.003
+2 initGhostsIfAny  0.368
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 83.786
+5 agentsSelectingExchangingAndUpdating 49.451
+6 sync1 30.251
+7 sync2 24.884
+rank 24 tick 10.0
+rank 16 tick 10.0
+rank 20 tick 10.0
+rank 21 tick 10.0
+rank 26 tick 10.0
+rank 27 tick 10.0
+
+
+Bye bye by rank 0 at tick 10.0 elapsed time 600.890 CPU time 200.072 transaction # 3120 CPU time to report results  0.007
+rank 18 tick 10.0
+rank 7 tick 10.0
+rank 22 tick 10.0
+rank 23 tick 10.0
+rank 8 tick 10.0
+rank 19 tick 10.0
+rank 12 tick 10.0
+rank 13 tick 10.0
+Intervals in rank  5
+0 getUp  2.789
+1 init  0.003
+2 initGhostsIfAny  0.358
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 75.369
+5 agentsSelectingExchangingAndUpdating 41.816
+6 sync1 37.409
+7 sync2 25.240
+
+
+Bye bye by rank 5 at tick 10.0 elapsed time 600.747 CPU time 200.065 transaction # 3120 CPU time to report results  0.008
+rank 2 tick 10.0
+rank 14 tick 10.0
+rank 15 tick 10.0
+rank 9 tick 10.0
+rank 10 tick 10.0
+rank 11 tick 10.0
+rank 25 tick 10.0
+rank 3 tick 10.0
+rank 17 tick 10.0
+Intervals in rank  4
+0 getUp  3.115
+1 init  0.002
+2 initGhostsIfAny  0.303
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 76.425
+5 agentsSelectingExchangingAndUpdating 42.794
+6 sync1 36.421
+7 sync2 25.327
+
+
+Bye bye by rank 4 at tick 10.0 elapsed time 601.029 CPU time 200.218 transaction # 3119 CPU time to report results  0.006
+Intervals in rank  16
+0 getUp  3.120
+1 init  0.003
+2 initGhostsIfAny  0.292
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 77.837
+5 agentsSelectingExchangingAndUpdating 45.681
+6 sync1 33.690
+7 sync2 25.083
+
+
+Bye bye by rank 16 at tick 10.0 elapsed time 600.844 CPU time 200.241 transaction # 3109 CPU time to report results  0.008
+Intervals in rank  1
+0 getUp  2.681
+1 init  0.002
+2 initGhostsIfAny  0.290
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 76.424
+5 agentsSelectingExchangingAndUpdating 42.721
+6 sync1 36.497
+7 sync2 25.271
+
+
+Bye bye by rank 1 at tick 10.0 elapsed time 600.987 CPU time 201.425 transaction # 3135 CPU time to report results  0.006
+Intervals in rank  20
+0 getUp  3.243
+1 init  0.003
+2 initGhostsIfAny  0.372
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 77.964
+5 agentsSelectingExchangingAndUpdating 47.277
+6 sync1 31.770
+7 sync2 25.420
+
+
+Bye bye by rank 20 at tick 10.0 elapsed time 601.273 CPU time 200.071 transaction # 3111 CPU time to report results  0.008
+Intervals in rank  23
+0 getUp  2.681
+1 init  0.002
+2 initGhostsIfAny  0.296
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 69.258
+5 agentsSelectingExchangingAndUpdating 41.131
+6 sync1 37.787
+7 sync2 25.462
+
+
+Bye bye by rank 23 at tick 10.0 elapsed time 600.986 CPU time 200.149 transaction # 3149 CPU time to report results  0.005
+Intervals in rank  26
+0 getUp  2.928
+1 init  0.002
+2 initGhostsIfAny  0.300
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 71.989
+5 agentsSelectingExchangingAndUpdating 41.349
+6 sync1 37.791
+7 sync2 25.228
+
+
+Bye bye by rank 26 at tick 10.0 elapsed time 601.835 CPU time 200.226 transaction # 3141 CPU time to report results  0.005
+Intervals in rank  27
+0 getUp  2.657
+1 init  0.003
+2 initGhostsIfAny  0.287
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 79.425
+5 agentsSelectingExchangingAndUpdating 44.904
+6 sync1 34.235
+7 sync2 25.304
+
+
+Bye bye by rank 27 at tick 10.0 elapsed time 600.740 CPU time 200.293 transaction # 3152 CPU time to report results  0.006
+Intervals in rank  7
+Intervals in rank  21
+0 getUp  3.271
+1 init  0.003
+2 initGhostsIfAny  0.358
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 86.645
+5 agentsSelectingExchangingAndUpdating 51.312
+6 sync1 28.365
+7 sync2 24.823
+0 getUp  2.496
+1 init  0.002
+2 initGhostsIfAny  0.295
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 65.663
+5 agentsSelectingExchangingAndUpdating 38.221
+6 sync1 41.043
+7 sync2 25.259
+
+
+Bye bye by rank 7 at tick 10.0 elapsed time 601.448 CPU time 200.297 transaction # 3109 CPU time to report results  0.006
+
+
+Bye bye by rank 21 at tick 10.0 elapsed time 600.744 CPU time 200.187 transaction # 3105 CPU time to report results  0.008
+Intervals in rank  18
+0 getUp  3.171
+1 init  0.002
+2 initGhostsIfAny  0.305
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 80.842
+5 agentsSelectingExchangingAndUpdating 50.239
+6 sync1 28.855
+7 sync2 25.413
+
+
+Bye bye by rank 18 at tick 10.0 elapsed time 600.951 CPU time 200.414 transaction # 3124 CPU time to report results  0.008
+Intervals in rank  13
+0 getUp  2.812
+1 init  0.002
+2 initGhostsIfAny  0.305
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 75.867
+5 agentsSelectingExchangingAndUpdating 44.454
+6 sync1 34.724
+7 sync2 25.253
+
+
+Bye bye by rank 13 at tick 10.0 elapsed time 600.723 CPU time 200.587 transaction # 3144 CPU time to report results  0.008
+Intervals in rank  22
+0 getUp  2.887
+1 init  0.002
+2 initGhostsIfAny  0.355
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 71.328
+5 agentsSelectingExchangingAndUpdating 41.306
+6 sync1 38.088
+7 sync2 25.123
+
+
+Bye bye by rank 22 at tick 10.0 elapsed time 601.713 CPU time 200.519 transaction # 3122 CPU time to report results  0.006
+Intervals in rank  24
+0 getUp  2.422
+1 init  0.002
+2 initGhostsIfAny  0.300
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 79.404
+5 agentsSelectingExchangingAndUpdating 45.344
+6 sync1 33.837
+7 sync2 25.149
+
+
+Bye bye by rank 24 at tick 10.0 elapsed time 601.615 CPU time 199.538 transaction # 3109 CPU time to report results  0.008
+Intervals in rank  2
+0 getUp  2.448
+1 init  0.002
+2 initGhostsIfAny  0.288
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 77.518
+5 agentsSelectingExchangingAndUpdating 44.390
+6 sync1 34.626
+7 sync2 25.385
+
+
+Bye bye by rank 2 at tick 10.0 elapsed time 600.904 CPU time 199.814 transaction # 3116 CPU time to report results  0.009
+Intervals in rank  3
+0 getUp  2.717
+1 init  0.002
+2 initGhostsIfAny  0.282
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 64.043
+5 agentsSelectingExchangingAndUpdating 38.446
+6 sync1 40.790
+7 sync2 25.134
+
+
+Bye bye by rank 3 at tick 10.0 elapsed time 601.198 CPU time 200.338 transaction # 3119 CPU time to report results  0.005
+Intervals in rank  9
+0 getUp  3.113
+1 init  0.003
+2 initGhostsIfAny  0.367
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 86.190
+5 agentsSelectingExchangingAndUpdating 49.524
+6 sync1 29.892
+7 sync2 25.024
+
+
+Bye bye by rank 9 at tick 10.0 elapsed time 600.884 CPU time 199.950 transaction # 3125 CPU time to report results  0.008
+Intervals in rank  14
+0 getUp  2.854
+1 init  0.002
+2 initGhostsIfAny  0.355
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 70.020
+5 agentsSelectingExchangingAndUpdating 40.161
+6 sync1 38.769
+7 sync2 25.183
+
+
+Bye bye by rank 14 at tick 10.0 elapsed time 600.910 CPU time 199.966 transaction # 3107 CPU time to report results  0.009
+Intervals in rank  17
+0 getUp  3.164
+1 init  0.003
+2 initGhostsIfAny  0.360
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 79.151
+5 agentsSelectingExchangingAndUpdating 46.031
+6 sync1 33.455
+7 sync2 24.987
+
+
+Bye bye by rank 17 at tick 10.0 elapsed time 601.111 CPU time 200.162 transaction # 3116 CPU time to report results  0.005
+Intervals in rank  25
+0 getUp  3.338
+1 init  0.003
+2 initGhostsIfAny  0.375
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 78.486
+5 agentsSelectingExchangingAndUpdating 47.211
+6 sync1 32.208
+7 sync2 25.013
+
+
+Bye bye by rank 25 at tick 10.0 elapsed time 600.889 CPU time 200.337 transaction # 3169 CPU time to report results  0.008
+Intervals in rank  12
+0 getUp  2.925
+1 init  0.003
+2 initGhostsIfAny  0.367
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 88.186
+5 agentsSelectingExchangingAndUpdating 51.869
+6 sync1 27.852
+7 sync2 24.742
+
+
+Bye bye by rank 12 at tick 10.0 elapsed time 601.728 CPU time 200.001 transaction # 3156 CPU time to report results  0.008
+Intervals in rank  10
+0 getUp  3.394
+1 init  0.003
+2 initGhostsIfAny  0.373
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 85.686
+5 agentsSelectingExchangingAndUpdating 49.796
+6 sync1 29.347
+7 sync2 25.311
+
+
+Bye bye by rank 10 at tick 10.0 elapsed time 601.563 CPU time 200.122 transaction # 3119 CPU time to report results  0.008
+Intervals in rank  15
+0 getUp  2.804
+1 init  0.002
+2 initGhostsIfAny  0.303
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 71.398
+5 agentsSelectingExchangingAndUpdating 41.559
+6 sync1 37.562
+7 sync2 25.176
+
+
+Bye bye by rank 15 at tick 10.0 elapsed time 600.760 CPU time 200.062 transaction # 3147 CPU time to report results  0.006
+Intervals in rank  11
+Intervals in rank  19
+0 getUp  2.883
+1 init  0.003
+2 initGhostsIfAny  0.293
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 77.085
+5 agentsSelectingExchangingAndUpdating 45.784
+6 sync1 33.478
+7 sync2 25.099
+
+
+Bye bye by rank 19 at tick 10.0 elapsed time 601.450 CPU time 200.071 transaction # 3144 CPU time to report results  0.008
+0 getUp  2.655
+1 init  0.002
+2 initGhostsIfAny  0.357
+3 counter  0.000
+4 agentsCreatingCounterpartSubset 74.968
+5 agentsSelectingExchangingAndUpdating 43.409
+6 sync1 36.060
+7 sync2 24.962
+
+
+Bye bye by rank 11 at tick 10.0 elapsed time 601.551 CPU time 200.089 transaction # 3136 CPU time to report results  0.008
+Intervals in rank  8
+0 getUp  3.204
+1 init  0.003
+2 initGhostsIfAny  0.305
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 77.585
+5 agentsSelectingExchangingAndUpdating 46.514
+6 sync1 32.400
+7 sync2 25.533
+
+
+Bye bye by rank 8 at tick 10.0 elapsed time 600.759 CPU time 200.339 transaction # 3119 CPU time to report results  0.008
