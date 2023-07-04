@@ -1,0 +1,96 @@
+<IPython.core.display.Javascript object>
+rank 0 tick 0.0
+<IPython.core.display.Javascript object>
+rank 1 tick 0.0
+<IPython.core.display.Javascript object>
+rank 2 tick 0.0
+<IPython.core.display.Javascript object>
+rank 3 tick 0.0
+rank 0 tick 1.0
+rank 1 tick 1.0
+rank 2 tick 1.0
+rank 3 tick 1.0
+rank 0 tick 2.0
+rank 1 tick 2.0
+rank 2 tick 2.0
+rank 3 tick 2.0
+rank 0 tick 3.0
+rank 1 tick 3.0
+rank 2 tick 3.0
+rank 3 tick 3.0
+rank 0 tick 4.0
+rank 1 tick 4.0
+rank 2 tick 4.0
+rank 3 tick 4.0
+rank 0 tick 5.0
+rank 1 tick 5.0
+rank 2 tick 5.0
+rank 3 tick 5.0
+rank 0 tick 6.0
+rank 1 tick 6.0
+rank 2 tick 6.0
+rank 3 tick 6.0
+rank 0 tick 7.0
+rank 1 tick 7.0
+rank 2 tick 7.0
+rank 3 tick 7.0
+rank 0 tick 8.0
+rank 1 tick 8.0
+rank 2 tick 8.0
+rank 3 tick 8.0
+rank 0 tick 9.0
+rank 1 tick 9.0
+rank 2 tick 9.0
+rank 3 tick 9.0
+rank 0 tick 10.0
+rank 1 tick 10.0
+rank 2 tick 10.0
+rank 3 tick 10.0
+Intervals in rank  2
+Intervals in rank  3
+0 getUp  6.623
+1 init  0.030
+2 initGhostsIfAny  0.217
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 412.654
+5 agentsSelectingExchangingAndUpdating 229.716
+6 sync1 23.612
+Intervals in rank  1
+0 getUp  6.722
+7 sync2 12.372
+1 init  0.025
+2 initGhostsIfAny  0.217
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 413.671
+5 agentsSelectingExchangingAndUpdating 227.798
+
+
+Bye bye by rank 3 at tick 10.0 elapsed time 691.245 CPU time 687.000 transaction # 8986 CPU time to report results  0.059
+6 sync1 25.778
+7 sync2 11.926
+
+
+Bye bye by rank 1 at tick 10.0 elapsed time 691.056 CPU time 686.290 transaction # 9049 CPU time to report results  0.059
+0 getUp  6.621
+Intervals in rank  0
+0 getUp  6.705
+1 init  0.026
+2 initGhostsIfAny  0.218
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 410.861
+5 agentsSelectingExchangingAndUpdating 234.685
+6 sync1 18.847
+7 sync2 11.706
+
+
+Bye bye by rank 0 at tick 10.0 elapsed time 691.126 CPU time 686.030 transaction # 8980 CPU time to report results  0.059
+1 init  0.028
+2 initGhostsIfAny  0.217
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 409.460
+5 agentsSelectingExchangingAndUpdating 231.744
+6 sync1 20.823
+7 sync2 13.041
+
+
+Bye bye by rank 2 at tick 10.0 elapsed time 691.151 CPU time 686.730 transaction # 9025 CPU time to report results  0.060

@@ -1,0 +1,48 @@
+<IPython.core.display.Javascript object>
+rank 0 tick 0.0
+<IPython.core.display.Javascript object>
+rank 1 tick 0.0
+rank 0 tick 1.0
+rank 1 tick 1.0
+rank 0 tick 2.0
+rank 1 tick 2.0
+rank 0 tick 3.0
+rank 1 tick 3.0
+rank 0 tick 4.0
+rank 1 tick 4.0
+rank 0 tick 5.0
+rank 1 tick 5.0
+rank 0 tick 6.0
+rank 1 tick 6.0
+rank 0 tick 7.0
+rank 1 tick 7.0
+rank 0 tick 8.0
+rank 1 tick 8.0
+rank 0 tick 9.0
+rank 1 tick 9.0
+rank 0 tick 10.0
+rank 1 tick 10.0
+Intervals in rank  0
+0 getUp  5.038
+1 init  0.056
+2 initGhostsIfAny  0.111
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 497.532
+5 agentsSelectingExchangingAndUpdating 422.838
+6 sync1 17.230
+7 sync2  6.572
+Intervals in rank  1
+0 getUp  5.040
+1 init  0.053
+2 initGhostsIfAny  0.112
+3 counter  0.001
+4 agentsCreatingCounterpartSubset 497.189
+5 agentsSelectingExchangingAndUpdating 416.340
+6 sync1 24.888
+7 sync2  5.685
+
+
+Bye bye by rank 1 at tick 10.0 elapsed time 951.425 CPU time 950.579 transaction # 15942 CPU time to report results  0.107
+
+
+Bye bye by rank 0 at tick 10.0 elapsed time 951.432 CPU time 950.162 transaction # 15847 CPU time to report results  0.106
