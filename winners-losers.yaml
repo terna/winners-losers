@@ -1,7 +1,7 @@
 myRandom.seed: [4321,4322,4323,4324,4325,4326,4327,4328,4329,4330,4331,4332,4333,4334,4335,4336,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012] # increase the number of items if more than 28 ranks
 howManyCycles: 10
 WinnerLoser.count: 12000
-log_file_root: 'ris2mac_'
+log_file_root: 'ris4mac_'
 rank_interaction: True
 counterpartRatio: 0.6
 maxNumberOfExchangeAttempts: 10
